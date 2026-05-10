@@ -8,390 +8,430 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0c0f;
-    --bg2: #111318;
-    --bg3: #181c22;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.13);
-    --text: #e8eaf0;
-    --muted: #6b7280;
-    --accent: #f0b429;
-    --accent2: #3ecf8e;
-    --danger: #f87171;
-    --mono: 'Space Mono', monospace;
-    --sans: 'DM Sans', sans-serif;
+    --bg:#0a0c0f; --bg2:#111318; --bg3:#181c22;
+    --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+    --text:#e8eaf0; --muted:#6b7280;
+    --accent:#f0b429; --accent2:#3ecf8e; --danger:#f87171; --info:#60a5fa;
+    --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
+  header{border-bottom:1px solid var(--border);padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:10;background:rgba(10,12,15,0.92);backdrop-filter:blur(12px);}
+  .logo{font-family:var(--mono);font-size:1rem;color:var(--accent);text-decoration:none;}
+  .logo span{color:var(--muted);}
+  .header-right{margin-left:auto;display:flex;align-items:center;gap:1rem;}
+  .update-badge{font-family:var(--mono);font-size:0.65rem;color:var(--muted);background:var(--bg3);padding:3px 8px;border-radius:4px;}
+  nav a{font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;padding:0.35rem 0.75rem;border:1px solid var(--border);border-radius:6px;transition:color 0.15s,border-color 0.15s;}
+  nav a:hover,nav a.active{color:var(--accent);border-color:rgba(240,180,41,0.3);}
+  main{max-width:1100px;margin:0 auto;padding:2rem 2rem;}
 
-  .noise {
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-  }
+  /* Hero */
+  .hero{margin-bottom:2.5rem;}
+  .hero h1{font-family:var(--mono);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;line-height:1.1;margin-bottom:0.4rem;}
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero p{color:var(--muted);font-size:0.87rem;max-width:500px;line-height:1.6;}
 
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 1.25rem 2rem;
-    display: flex; align-items: center; gap: 1rem;
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(10,12,15,0.92);
-    backdrop-filter: blur(12px);
-  }
-  .logo { font-family: var(--mono); font-size: 1rem; color: var(--accent); letter-spacing: -0.02em; }
-  .logo span { color: var(--muted); }
-  .header-sub { font-size: 0.75rem; color: var(--muted); margin-left: auto; font-family: var(--mono); }
+  /* Stats bar */
+  .stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:2.5rem;}
+  .stat-pill{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:0.9rem 1rem;text-align:center;}
+  .stat-pill .val{font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent);}
+  .stat-pill .lbl{font-size:0.68rem;color:var(--muted);margin-top:3px;}
 
-  main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; position: relative; z-index: 1; }
+  /* Portfolio */
+  .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.75rem;margin-bottom:2.5rem;}
+  .portfolio-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.1rem;position:relative;overflow:hidden;}
+  .portfolio-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent2);}
+  .portfolio-card.loss::before{background:var(--danger);}
+  .p-ticker{font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:2px;}
+  .p-name{font-size:0.75rem;color:var(--muted);margin-bottom:0.75rem;}
+  .p-metrics{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+  .p-metric .lbl{font-size:0.62rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em;}
+  .p-metric .val{font-family:var(--mono);font-size:0.9rem;color:var(--text);}
+  .p-metric .val.up{color:var(--accent2);}
+  .p-metric .val.dn{color:var(--danger);}
+  .p-rank{position:absolute;top:0.8rem;right:0.8rem;font-family:var(--mono);font-size:0.65rem;background:rgba(240,180,41,0.12);color:var(--accent);padding:2px 7px;border-radius:4px;}
 
-  .hero { margin-bottom: 3rem; }
-  .hero h1 {
-    font-family: var(--mono); font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700; line-height: 1.1; color: var(--text);
-    margin-bottom: 0.5rem;
-  }
-  .hero h1 em { color: var(--accent); font-style: normal; }
-  .hero p { color: var(--muted); font-size: 0.9rem; max-width: 480px; line-height: 1.6; }
+  /* Search */
+  .search-box{display:flex;gap:0.75rem;margin-bottom:2.5rem;background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:0.75rem 1rem;transition:border-color 0.2s;}
+  .search-box:focus-within{border-color:var(--accent);}
+  .search-box input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:var(--mono);font-size:1rem;letter-spacing:0.05em;}
+  .search-box input::placeholder{color:var(--muted);}
+  .search-box button{background:var(--accent);color:#000;border:none;padding:0.5rem 1.25rem;border-radius:6px;cursor:pointer;font-family:var(--mono);font-size:0.8rem;font-weight:700;letter-spacing:0.05em;transition:opacity 0.15s;}
+  .search-box button:hover{opacity:0.85;}
 
-  .search-box {
-    display: flex; gap: 0.75rem; margin-bottom: 3rem;
-    background: var(--bg2); border: 1px solid var(--border2);
-    border-radius: 10px; padding: 0.75rem 1rem;
-    transition: border-color 0.2s;
-  }
-  .search-box:focus-within { border-color: var(--accent); }
-  .search-box input {
-    flex: 1; background: none; border: none; outline: none;
-    color: var(--text); font-family: var(--mono); font-size: 1rem;
-    letter-spacing: 0.05em;
-  }
-  .search-box input::placeholder { color: var(--muted); }
-  .search-box button {
-    background: var(--accent); color: #000; border: none;
-    padding: 0.5rem 1.25rem; border-radius: 6px; cursor: pointer;
-    font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
-    letter-spacing: 0.05em; transition: opacity 0.15s;
-  }
-  .search-box button:hover { opacity: 0.85; }
+  /* Section label */
+  .section-label{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  .section-label {
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em;
-    color: var(--muted); text-transform: uppercase; margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  /* Watchlist */
+  .watchlist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:2.5rem;}
+  .stock-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.2rem;cursor:pointer;transition:border-color 0.2s,transform 0.15s;text-decoration:none;display:block;position:relative;overflow:hidden;}
+  .stock-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+  .stock-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+  .stock-card:hover::before{transform:scaleX(1);}
+  .card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+  .card-ticker{font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--accent);}
+  .card-exchange{font-family:var(--mono);font-size:0.62rem;color:var(--muted);background:var(--bg3);padding:2px 6px;border-radius:4px;margin-top:2px;}
+  .card-name{font-size:0.78rem;color:var(--muted);margin-bottom:0.9rem;line-height:1.3;}
+  .card-metrics{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+  .metric .lbl{font-size:0.62rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:2px;}
+  .metric .val{font-size:0.95rem;font-weight:500;font-family:var(--mono);color:var(--text);}
+  .metric .val.live{color:var(--accent2);}
+  .score-bar{height:3px;background:var(--bg3);border-radius:2px;margin-top:5px;}
+  .score-fill{height:100%;border-radius:2px;background:var(--accent);}
+  .vol-badge{display:inline-block;font-size:0.62rem;font-family:var(--mono);padding:2px 7px;border-radius:4px;margin-top:5px;}
+  .vol-hot{background:rgba(240,180,41,0.15);color:var(--accent);}
+  .vol-ok{background:rgba(62,207,142,0.12);color:var(--accent2);}
+  .vol-cold{background:rgba(107,114,128,0.15);color:var(--muted);}
+  .remove-btn{position:absolute;top:0.7rem;right:0.7rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.75rem;padding:2px 5px;border-radius:4px;opacity:0;transition:opacity 0.15s,color 0.15s;}
+  .stock-card:hover .remove-btn{opacity:1;}
+  .remove-btn:hover{color:var(--danger);}
 
-  .watchlist-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem; margin-bottom: 3rem;
-  }
+  /* Tabs */
+  .tabs{display:flex;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap;}
+  .tab-btn{font-family:var(--mono);font-size:0.7rem;padding:0.35rem 0.9rem;border:1px solid var(--border);border-radius:6px;background:none;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+  .tab-btn.active{background:var(--accent);color:#000;border-color:var(--accent);}
 
-  .stock-card {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 1.25rem;
-    cursor: pointer; transition: border-color 0.2s, transform 0.15s;
-    text-decoration: none; display: block; position: relative;
-    overflow: hidden;
-  }
-  .stock-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: var(--accent); transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .stock-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-  .stock-card:hover::before { transform: scaleX(1); }
+  /* Top 20 grid */
+  .top20-list{display:flex;flex-direction:column;gap:0.5rem;}
+  .top20-row{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:0.85rem 1.1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:border-color 0.2s;text-decoration:none;}
+  .top20-row:hover{border-color:var(--border2);}
+  .rank{font-family:var(--mono);font-size:0.7rem;color:var(--muted);min-width:28px;}
+  .rank.top3{color:var(--accent);}
+  .top20-info{flex:1;min-width:0;}
+  .top20-ticker{font-family:var(--mono);font-size:0.9rem;font-weight:700;color:var(--text);}
+  .top20-name{font-size:0.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .top20-right{display:flex;align-items:center;gap:1.5rem;text-align:right;}
+  .top20-score{font-family:var(--mono);font-size:0.85rem;color:var(--accent);}
+  .top20-sector{font-size:0.68rem;color:var(--muted);font-family:var(--mono);}
 
-  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-  .card-ticker { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--accent); }
-  .card-exchange { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); background: var(--bg3); padding: 2px 6px; border-radius: 4px; }
-  .card-name { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.3; }
+  /* Stats panel */
+  .stats-panel{display:none;}
+  .stats-panel.visible{display:block;}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem;}
+  .stats-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:1rem;}
+  .stats-card h3{font-family:var(--mono);font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+  .stat-row{display:flex;justify-content:space-between;padding:0.3rem 0;font-size:0.8rem;border-bottom:1px solid var(--border);}
+  .stat-row:last-child{border-bottom:none;}
+  .stat-row .k{color:var(--muted);}
+  .stat-row .v{font-family:var(--mono);color:var(--text);}
+  .sector-table{width:100%;border-collapse:collapse;font-size:0.78rem;}
+  .sector-table th{font-family:var(--mono);font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;padding:0.4rem 0.6rem;text-align:left;border-bottom:1px solid var(--border);}
+  .sector-table td{padding:0.45rem 0.6rem;border-bottom:1px solid var(--border);}
+  .sector-table tr:last-child td{border-bottom:none;}
+  .sector-table tr:hover td{background:var(--bg3);}
 
-  .card-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-  .metric { }
-  .metric-label { font-size: 0.65rem; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
-  .metric-value { font-size: 1rem; font-weight: 500; font-family: var(--mono); color: var(--text); }
-  .metric-value.live { color: var(--accent2); }
-  .metric-value.score-high { color: var(--accent); }
+  /* Empty */
+  .empty{border:1px dashed var(--border2);border-radius:12px;padding:2.5rem;text-align:center;color:var(--muted);grid-column:1/-1;}
+  .empty p{font-size:0.88rem;line-height:1.6;}
+  .empty code{font-family:var(--mono);color:var(--accent);font-size:0.82rem;}
 
-  .score-bar { height: 3px; background: var(--bg3); border-radius: 2px; margin-top: 6px; }
-  .score-fill { height: 100%; border-radius: 2px; background: var(--accent); transition: width 0.6s ease; }
-
-  .vol-badge {
-    display: inline-block; font-size: 0.65rem; font-family: var(--mono);
-    padding: 2px 7px; border-radius: 4px; margin-top: 6px;
-  }
-  .vol-hot { background: rgba(240,180,41,0.15); color: var(--accent); }
-  .vol-ok { background: rgba(62,207,142,0.12); color: var(--accent2); }
-  .vol-cold { background: rgba(107,114,128,0.15); color: var(--muted); }
-
-  .remove-btn {
-    position: absolute; top: 0.75rem; right: 0.75rem;
-    background: none; border: none; color: var(--muted); cursor: pointer;
-    font-size: 0.75rem; padding: 2px 5px; border-radius: 4px;
-    opacity: 0; transition: opacity 0.15s, color 0.15s;
-  }
-  .stock-card:hover .remove-btn { opacity: 1; }
-  .remove-btn:hover { color: var(--danger); }
-
-  .top20-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 0.75rem;
-  }
-  .top20-row {
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 10px; padding: 1rem 1.25rem;
-    display: flex; align-items: center; gap: 1rem;
-    cursor: pointer; transition: border-color 0.2s;
-    text-decoration: none;
-  }
-  .top20-row:hover { border-color: var(--border2); }
-  .rank { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); min-width: 24px; }
-  .rank.top3 { color: var(--accent); }
-  .top20-info { flex: 1; }
-  .top20-ticker { font-family: var(--mono); font-size: 0.9rem; font-weight: 700; color: var(--text); }
-  .top20-name { font-size: 0.75rem; color: var(--muted); }
-  .top20-score { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); text-align: right; }
-
-  .empty-watchlist {
-    border: 1px dashed var(--border2); border-radius: 12px;
-    padding: 3rem; text-align: center; color: var(--muted);
-    grid-column: 1/-1;
-  }
-  .empty-watchlist p { font-size: 0.9rem; line-height: 1.6; }
-  .empty-watchlist code { font-family: var(--mono); color: var(--accent); font-size: 0.85rem; }
-
-  .disclaimer {
-    margin-top: 4rem; padding: 1.25rem; border: 1px solid var(--border);
-    border-radius: 8px; font-size: 0.75rem; color: var(--muted); line-height: 1.6;
-    border-left: 3px solid var(--danger);
-  }
-
-  .loading-dot {
-    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent); animation: pulse 1.2s infinite;
-  }
-  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
-
-  .toast {
-    position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
-    background: var(--bg2); border: 1px solid var(--border2);
-    border-radius: 8px; padding: 0.75rem 1.25rem;
-    font-size: 0.85rem; font-family: var(--mono);
-    transform: translateY(100px); opacity: 0;
-    transition: all 0.3s; pointer-events: none;
-  }
-  .toast.show { transform: translateY(0); opacity: 1; }
-  .toast.ok { border-left: 3px solid var(--accent2); color: var(--accent2); }
-  .toast.err { border-left: 3px solid var(--danger); color: var(--danger); }
+  .disclaimer{margin-top:3.5rem;padding:1rem 1.25rem;border:1px solid var(--border);border-radius:8px;font-size:0.73rem;color:var(--muted);line-height:1.6;border-left:3px solid var(--danger);}
+  .toast{position:fixed;bottom:2rem;right:2rem;z-index:100;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:0.75rem 1.25rem;font-size:0.82rem;font-family:var(--mono);transform:translateY(100px);opacity:0;transition:all 0.3s;pointer-events:none;}
+  .toast.show{transform:translateY(0);opacity:1;}
+  .toast.ok{border-left:3px solid var(--accent2);color:var(--accent2);}
+  @keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+  .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 1.5s infinite;vertical-align:middle;}
 </style>
 </head>
 <body>
-<div class="noise"></div>
-
 <header>
-  <div class="logo">TSX<span>.</span>ROCKET</div>
-  <div class="header-sub">TSX · TSXV &nbsp;|&nbsp; Données: Yahoo Finance</div>
+  <a class="logo" href="index.html">TSX<span>.</span>ROCKET</a>
+  <nav style="display:flex;gap:0.5rem;">
+    <a href="index.html" class="active">Accueil</a>
+    <a href="stats.html">Statistiques</a>
+  </nav>
+  <div class="header-right">
+    <span class="update-badge" id="updateBadge">—</span>
+  </div>
 </header>
 
 <main>
   <div class="hero">
     <h1>Penny stocks.<br><em>Patterns.</em> Opportunités.</h1>
-    <p>Tracker personnel basé sur l'analyse de 3 514 fusées historiques (2000–2026). Pour usage informatif uniquement.</p>
+    <p>Basé sur l'analyse de <strong id="heroRockets">3 514</strong> fusées historiques (2000–2026). Données actualisées via tsx_update.py.</p>
   </div>
 
+  <div class="stats-bar" id="statsBar"></div>
+
+  <div class="section-label">Mon portefeuille <span class="dot"></span></div>
+  <div class="portfolio-grid" id="portfolioGrid"></div>
+
   <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Entrer un ticker : RPX.V, MN.V, NMI.V ..." autocomplete="off" spellcheck="false">
+    <input type="text" id="searchInput" placeholder="Ticker : RPX.V, MN.V, CYG.V ..." autocomplete="off" spellcheck="false">
     <button onclick="handleSearch()">ANALYSER →</button>
   </div>
 
-  <div class="section-label">Ma watchlist <span id="watchlist-count">0 titre</span></div>
-  <div class="watchlist-grid" id="watchlistGrid">
-    <div class="empty-watchlist">
-      <p>Ta watchlist est vide.<br>Recherche un ticker ci-dessus ou ajoute un titre depuis sa fiche.<br><br>Exemples : <code>RPX.V</code> &nbsp; <code>MN.V</code> &nbsp; <code>MINE.V</code></p>
+  <div class="section-label">Ma watchlist <span id="watchlistCount">0 titre</span></div>
+  <div class="watchlist-grid" id="watchlistGrid"></div>
+
+  <div class="section-label">Top 20 algorithme — <span id="top20Date">—</span></div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('top20',this)">Top 20</button>
+    <button class="tab-btn" onclick="switchTab('stats',this)">Stats par secteur</button>
+    <button class="tab-btn" onclick="switchTab('years',this)">Par année</button>
+  </div>
+
+  <div id="top20Panel">
+    <div class="top20-list" id="top20List"></div>
+  </div>
+
+  <div id="statsPanel" class="stats-panel">
+    <div class="stats-grid">
+      <div class="stats-card">
+        <h3>Jours jusqu'au pic — global</h3>
+        <div id="globalStats"></div>
+      </div>
+      <div class="stats-card" style="grid-column:span 2">
+        <h3>Par secteur</h3>
+        <table class="sector-table" id="sectorTable"></table>
+      </div>
     </div>
   </div>
 
-  <div class="section-label">Top 20 algorithme — mai 2026</div>
-  <div class="top20-grid" id="top20Grid"></div>
+  <div id="yearsPanel" class="stats-panel">
+    <div class="stats-card">
+      <h3>Fusées par année</h3>
+      <div id="yearChart"></div>
+    </div>
+  </div>
 
   <div class="disclaimer">
-    ⚠️ Ce tracker est à titre informatif uniquement. Les penny stocks sont des investissements à très haut risque. Les patterns historiques ne garantissent aucun rendement futur. Ne jamais investir plus que ce qu'on est prêt à perdre entièrement.Ceci n'est pas un conseil financier. Parlez à un professionnel. 
+    ⚠️ Ce tracker est à titre informatif uniquement. Les penny stocks sont des investissements à très haut risque. Les patterns historiques ne garantissent aucun rendement futur. Ne jamais investir plus que ce qu'on est prêt à perdre entièrement. Ce n'est pas un conseil financier.
   </div>
 </main>
 
 <div class="toast" id="toast"></div>
 
+<script src="data.js"></script>
 <script>
-const TOP20 = [
-  { ticker:'RPX', exchange:'V', name:'Red Pine Exploration Inc', score:76.1, price:0.203, vol:1.1, sector:'Or / Argent' },
-  { ticker:'CYG', exchange:'V', name:'CYGAM Energy Inc.', score:75.0, price:0.130, vol:1.1, sector:'Énergie' },
-  { ticker:'TWO', exchange:'V', name:'T2 Metals Corp.', score:71.4, price:0.500, vol:1.0, sector:'Métaux critiques' },
-  { ticker:'MN',  exchange:'V', name:'Manganese X Energy Corp', score:69.7, price:0.115, vol:1.0, sector:'Métaux critiques' },
-  { ticker:'ROS', exchange:'V', name:'Roscan Gold Corp', score:66.3, price:0.185, vol:1.1, sector:'Or / Argent' },
-  { ticker:'AUME',exchange:'V', name:'Auriginal Mining Corp.', score:65.8, price:0.055, vol:1.1, sector:'Or / Argent' },
-  { ticker:'NNX', exchange:'V', name:'Nickel North Exploration', score:65.7, price:0.045, vol:0.8, sector:'Métaux critiques' },
-  { ticker:'BEEP',exchange:'V', name:'Geiger Energy Corporation', score:65.5, price:0.195, vol:0.9, sector:'Énergie' },
-  { ticker:'MCI', exchange:'V', name:'Minnova Corp', score:65.3, price:0.260, vol:0.9, sector:'Or / Argent' },
-  { ticker:'CBIT',exchange:'V', name:'Cathedra Bitcoin Inc', score:64.3, price:0.350, vol:0.9, sector:'Crypto' },
-  { ticker:'PPX', exchange:'V', name:'PPX Mining Corp', score:64.1, price:0.250, vol:1.0, sector:'Or / Argent' },
-  { ticker:'VIPR',exchange:'V', name:'Silver Viper Minerals Co', score:63.6, price:0.910, vol:0.7, sector:'Or / Argent' },
-  { ticker:'FTRC',exchange:'V', name:'The FUTR Corporation', score:63.5, price:0.215, vol:0.7, sector:'Tech' },
-  { ticker:'VG',  exchange:'V', name:'Volcanic Gold Mines Inc', score:63.3, price:0.095, vol:0.9, sector:'Or / Argent' },
-  { ticker:'AUMB',exchange:'V', name:'1911 Gold Corp', score:63.3, price:0.870, vol:0.7, sector:'Or / Argent' },
-  { ticker:'NMI', exchange:'V', name:'Namibia Critical Metals', score:63.1, price:0.230, vol:1.2, sector:'Métaux critiques' },
-  { ticker:'LOT', exchange:'V', name:'TomaGold Corporation', score:63.0, price:0.050, vol:0.9, sector:'Or / Argent' },
-  { ticker:'FAIR',exchange:'V', name:'Fairchild Gold Corp', score:62.7, price:0.070, vol:0.9, sector:'Or / Argent' },
-  { ticker:'MINE',exchange:'V', name:'Inomin Mines Inc', score:62.5, price:0.105, vol:1.4, sector:'Or / Argent' },
-  { ticker:'MHUB',exchange:'V', name:'Minehub Technologies Inc', score:62.3, price:0.550, vol:1.0, sector:'Tech' },
-];
+const D = window.TSX_DATA;
 
-function getWatchlist() {
-  try { return JSON.parse(localStorage.getItem('tsx_watchlist') || '[]'); }
-  catch { return []; }
-}
-function saveWatchlist(list) {
-  localStorage.setItem('tsx_watchlist', JSON.stringify(list));
-}
-
-function showToast(msg, type='ok') {
+// ── Utilitaires ──────────────────────────────────────────────
+function toast(msg, type='ok') {
   const t = document.getElementById('toast');
   t.textContent = msg; t.className = 'toast show ' + type;
-  setTimeout(() => { t.className = 'toast'; }, 2500);
+  setTimeout(() => t.className = 'toast', 2500);
 }
-
+function getWL() { try { return JSON.parse(localStorage.getItem('tsx_watchlist')||'[]'); } catch { return []; } }
+function saveWL(l) { localStorage.setItem('tsx_watchlist', JSON.stringify(l)); }
 function volBadge(v) {
-  if (v >= 1.2) return `<span class="vol-badge vol-hot">🔥 VOL ${v.toFixed(1)}x</span>`;
-  if (v >= 1.0) return `<span class="vol-badge vol-ok">↑ VOL ${v.toFixed(1)}x</span>`;
-  return `<span class="vol-badge vol-cold">VOL ${v.toFixed(1)}x</span>`;
+  if (v >= 1.2) return `<span class="vol-badge vol-hot">🔥 ${v.toFixed(1)}x</span>`;
+  if (v >= 1.0) return `<span class="vol-badge vol-ok">↑ ${v.toFixed(1)}x</span>`;
+  return `<span class="vol-badge vol-cold">${v.toFixed(1)}x</span>`;
 }
-
-function scoreColor(s) {
-  if (s >= 70) return 'score-high';
-  if (s >= 60) return '';
-  return '';
-}
-
-function buildStockCard(item, inWatchlist=true) {
-  const key = item.ticker + '.' + item.exchange;
-  const card = document.createElement('a');
-  card.className = 'stock-card';
-  card.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
-  card.innerHTML = `
-    ${inWatchlist ? `<button class="remove-btn" data-key="${key}" title="Retirer">✕</button>` : ''}
-    <div class="card-header">
-      <div>
-        <div class="card-ticker">${item.ticker}</div>
-        <div class="card-exchange">${item.exchange === 'V' ? 'TSXV' : 'TSX'}</div>
-      </div>
-      <div style="text-align:right">
-        <div class="metric-value live" id="price-${key}">
-          <span class="loading-dot"></span>
-        </div>
-        <div style="font-size:0.65rem;color:var(--muted);font-family:var(--mono);">live</div>
-      </div>
-    </div>
-    <div class="card-name">${item.name}</div>
-    <div class="card-metrics">
-      <div class="metric">
-        <div class="metric-label">Score</div>
-        <div class="metric-value ${scoreColor(item.score)}">${item.score.toFixed(1)}<span style="font-size:0.7rem;color:var(--muted)">/100</span></div>
-        <div class="score-bar"><div class="score-fill" style="width:${item.score}%"></div></div>
-      </div>
-      <div class="metric">
-        <div class="metric-label">Secteur</div>
-        <div class="metric-value" style="font-size:0.8rem">${item.sector}</div>
-        ${volBadge(item.vol || 1)}
-      </div>
-    </div>
-  `;
-  if (inWatchlist) {
-    card.querySelector('.remove-btn').addEventListener('click', (e) => {
-      e.preventDefault(); e.stopPropagation();
-      removeFromWatchlist(key);
-    });
-  }
-  fetchLivePrice(item.ticker, item.exchange, `price-${key}`);
-  return card;
-}
-
-async function fetchLivePrice(ticker, exchange, elId) {
+async function fetchPrice(ticker, exchange, elId) {
   const suffix = exchange === 'V' ? '.V' : '.TO';
-  const yTicker = ticker + suffix;
   const el = document.getElementById(elId);
   if (!el) return;
   try {
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yTicker}?interval=1d&range=1d`;
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker+suffix}?interval=1d&range=1d`;
     const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
     const d = await r.json();
-    const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
-    if (price && el) {
-      el.textContent = price.toFixed(3) + ' $';
-    } else if (el) {
-      el.textContent = '— $';
-    }
-  } catch {
-    if (el) el.textContent = '— $';
-  }
+    const p = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+    el.textContent = p ? p.toFixed(3) + ' $' : '— $';
+  } catch { el.textContent = '— $'; }
 }
 
-function removeFromWatchlist(key) {
-  let list = getWatchlist().filter(i => (i.ticker + '.' + i.exchange) !== key);
-  saveWatchlist(list);
-  renderWatchlist();
-  showToast('Retiré de la watchlist', 'ok');
-}
+// ── Header ───────────────────────────────────────────────────
+document.getElementById('updateBadge').textContent = D.meta.updated;
+document.getElementById('heroRockets').textContent = D.meta.total_rockets.toLocaleString('fr-CA');
+document.getElementById('top20Date').textContent = D.meta.data_date;
 
-function renderWatchlist() {
-  const list = getWatchlist();
-  const grid = document.getElementById('watchlistGrid');
-  const count = document.getElementById('watchlist-count');
-  count.textContent = list.length + (list.length === 1 ? ' titre' : ' titres');
-  grid.innerHTML = '';
-  if (list.length === 0) {
-    grid.innerHTML = `<div class="empty-watchlist">
-      <p>Ta watchlist est vide.<br>Recherche un ticker ci-dessus ou ajoute un titre depuis sa fiche.<br><br>Exemples : <code>RPX.V</code> &nbsp; <code>MN.V</code> &nbsp; <code>MINE.V</code></p>
+// ── Stats bar ─────────────────────────────────────────────────
+const sb = document.getElementById('statsBar');
+const g  = D.stats_global;
+[
+  { val: D.meta.total_rockets.toLocaleString('fr-CA'), lbl: 'Fusées historiques' },
+  { val: D.meta.total_tickers.toLocaleString('fr-CA'), lbl: 'Titres analysés' },
+  { val: g.days_median + 'j',  lbl: 'Médiane jours au pic' },
+  { val: '±' + Math.round(g.days_std) + 'j', lbl: 'Écart-type' },
+  { val: g.days_q1 + 'j',      lbl: '25% avant (Q1)' },
+  { val: g.days_q3 + 'j',      lbl: '75% avant (Q3)' },
+  { val: g.gain_median + '%',  lbl: 'Gain médian' },
+].forEach(item => {
+  sb.innerHTML += `<div class="stat-pill"><div class="val">${item.val}</div><div class="lbl">${item.lbl}</div></div>`;
+});
+
+// ── Portefeuille ──────────────────────────────────────────────
+const pg = document.getElementById('portfolioGrid');
+D.portfolio.forEach(p => {
+  const gainClass = p.gain_pct >= 0 ? 'up' : 'dn';
+  const arrow     = p.gain_pct >= 0 ? '↑' : '↓';
+  const cardClass = p.gain_pct < -10 ? 'portfolio-card loss' : 'portfolio-card';
+  const el = document.createElement('a');
+  el.className = cardClass;
+  el.href = `stock.html?ticker=${p.ticker}&exchange=${p.exchange}`;
+  el.style.textDecoration = 'none';
+  el.innerHTML = `
+    ${p.in_top20 ? `<div class="p-rank">#${p.rank} top20</div>` : '<div class="p-rank" style="color:var(--muted)">hors top20</div>'}
+    <div class="p-ticker">${p.ticker}.${p.exchange}</div>
+    <div class="p-name" id="pname-${p.ticker}">Chargement...</div>
+    <div class="p-metrics">
+      <div class="p-metric"><div class="lbl">Entrée</div><div class="val">${p.cost.toFixed(3)} $</div></div>
+      <div class="p-metric"><div class="lbl">Actuel</div><div class="val live" id="plive-${p.ticker}">${p.current_price.toFixed(3)} $</div></div>
+      <div class="p-metric"><div class="lbl">Gain/Perte</div><div class="val ${gainClass}">${arrow} ${Math.abs(p.gain_pct).toFixed(1)}%</div></div>
+      <div class="p-metric"><div class="lbl">Valeur</div><div class="val">${p.value.toFixed(0)} $</div></div>
     </div>`;
+  pg.appendChild(el);
+
+  // Nom depuis top20
+  const t20 = D.top20.find(t => t.ticker === p.ticker && t.exchange === p.exchange);
+  if (t20) document.getElementById(`pname-${p.ticker}`).textContent = t20.name;
+
+  // Prix live
+  fetchPrice(p.ticker, p.exchange, `plive-${p.ticker}`);
+});
+
+// ── Watchlist ─────────────────────────────────────────────────
+function buildCard(item) {
+  const key = item.ticker + '.' + item.exchange;
+  const el  = document.createElement('a');
+  el.className = 'stock-card';
+  el.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
+  el.innerHTML = `
+    <button class="remove-btn" data-key="${key}">✕</button>
+    <div class="card-header">
+      <div><div class="card-ticker">${item.ticker}</div><div class="card-exchange">${item.exchange==='V'?'TSXV':'TSX'}</div></div>
+      <div style="text-align:right">
+        <div class="metric val live" id="wl-price-${key}" style="font-family:var(--mono);font-size:1rem;color:var(--accent2)">—</div>
+        <div style="font-size:0.62rem;color:var(--muted);font-family:var(--mono)">live</div>
+      </div>
+    </div>
+    <div class="card-name">${item.name||key}</div>
+    <div class="card-metrics">
+      <div class="metric"><div class="lbl">Score</div><div class="val">${(item.score||0).toFixed(1)}<span style="font-size:0.68rem;color:var(--muted)">/100</span></div><div class="score-bar"><div class="score-fill" style="width:${item.score||0}%"></div></div></div>
+      <div class="metric"><div class="lbl">Secteur</div><div class="val" style="font-size:0.78rem">${item.sector||'—'}</div>${volBadge(item.vol||1)}</div>
+    </div>`;
+  el.querySelector('.remove-btn').addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    saveWL(getWL().filter(i => i.ticker+'.'+i.exchange !== key));
+    renderWL();
+    toast('Retiré de la watchlist');
+  });
+  fetchPrice(item.ticker, item.exchange, `wl-price-${key}`);
+  return el;
+}
+
+function renderWL() {
+  const list = getWL();
+  const grid = document.getElementById('watchlistGrid');
+  document.getElementById('watchlistCount').textContent = list.length + (list.length===1?' titre':' titres');
+  grid.innerHTML = '';
+  if (!list.length) {
+    grid.innerHTML = `<div class="empty"><p>Watchlist vide.<br>Recherche un ticker ou ajoute depuis la fiche du titre.<br><br>Exemples : <code>RPX.V</code> &nbsp; <code>CYG.V</code> &nbsp; <code>MN.V</code></p></div>`;
     return;
   }
-  list.forEach(item => grid.appendChild(buildStockCard(item, true)));
+  list.forEach(item => grid.appendChild(buildCard(item)));
 }
 
-function renderTop20() {
-  const grid = document.getElementById('top20Grid');
-  TOP20.forEach((item, i) => {
-    const row = document.createElement('a');
-    row.className = 'top20-row';
-    row.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
-    row.innerHTML = `
-      <div class="rank ${i < 3 ? 'top3' : ''}">#${i+1}</div>
-      <div class="top20-info">
-        <div class="top20-ticker">${item.ticker}<span style="color:var(--muted);font-size:0.7rem">.${item.exchange}</span></div>
-        <div class="top20-name">${item.name.substring(0,30)}</div>
+// ── Top 20 ───────────────────────────────────────────────────
+const tl = document.getElementById('top20List');
+D.top20.forEach(item => {
+  const row = document.createElement('a');
+  row.className = 'top20-row';
+  row.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
+  const volCls = item.vol_spike >= 1.2 ? 'vol-hot' : item.vol_spike >= 1.0 ? 'vol-ok' : 'vol-cold';
+  row.innerHTML = `
+    <div class="rank ${item.rank<=3?'top3':''}">#${item.rank}</div>
+    <div class="top20-info">
+      <div class="top20-ticker">${item.ticker}<span style="color:var(--muted);font-size:0.68rem">.${item.exchange}</span></div>
+      <div class="top20-name">${item.name}</div>
+    </div>
+    <div class="top20-right">
+      <div>
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--accent2)" id="t20p-${item.ticker}${item.exchange}">—</div>
+        <div class="top20-sector">${item.sector}</div>
       </div>
-      <div class="top20-score">${item.score.toFixed(1)}</div>
-    `;
-    grid.appendChild(row);
-  });
-}
+      <div>
+        <div class="top20-score">${item.score.toFixed(1)}</div>
+        <div class="${`vol-badge ${volCls}`}" style="display:inline-block">${item.vol_spike.toFixed(1)}x</div>
+      </div>
+    </div>`;
+  tl.appendChild(row);
+  fetchPrice(item.ticker, item.exchange, `t20p-${item.ticker}${item.exchange}`);
+});
 
+// ── Stats secteur ─────────────────────────────────────────────
+const globalDiv = document.getElementById('globalStats');
+[
+  ['Médiane', g.days_median + 'j'],
+  ['Moyenne', Math.round(g.days_mean) + 'j'],
+  ['Écart-type', '± ' + Math.round(g.days_std) + 'j'],
+  ['Q1 (25% avant)', g.days_q1 + 'j'],
+  ['Q3 (75% avant)', g.days_q3 + 'j'],
+  ['Min', g.days_min + 'j'],
+  ['Max', g.days_max + 'j'],
+].forEach(([k,v]) => {
+  globalDiv.innerHTML += `<div class="stat-row"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+});
+
+const st = document.getElementById('sectorTable');
+st.innerHTML = `<tr><th>Secteur</th><th>Fusées</th><th>Médiane j</th><th>Écart-t</th><th>Q1</th><th>Q3</th><th>Gain méd.</th><th>Prix départ</th></tr>`;
+D.stats_by_sector.forEach(s => {
+  st.innerHTML += `<tr>
+    <td>${s.sector}</td>
+    <td style="font-family:var(--mono)">${s.n}</td>
+    <td style="font-family:var(--mono);color:var(--accent)">${s.days_median}j</td>
+    <td style="font-family:var(--mono);color:var(--muted)">±${s.days_std}j</td>
+    <td style="font-family:var(--mono)">${s.days_q1}j</td>
+    <td style="font-family:var(--mono)">${s.days_q3}j</td>
+    <td style="font-family:var(--mono);color:var(--accent2)">+${s.gain_median}%</td>
+    <td style="font-family:var(--mono)">${s.price_median.toFixed(3)}$</td>
+  </tr>`;
+});
+
+// ── Par année ──────────────────────────────────────────────────
+const yc = document.getElementById('yearChart');
+const maxN = Math.max(...D.stats_by_year.map(y => y.n));
+yc.innerHTML = D.stats_by_year.map(y => {
+  const w = Math.round((y.n / maxN) * 100);
+  const ctx = y.year <= 2001 ? '🔴 Crash dot-com'
+    : y.year <= 2003 ? '🟡 Rebond'
+    : y.year <= 2007 ? '🟢 Boom ressources'
+    : y.year <= 2009 ? '🔴 Crise financière'
+    : y.year <= 2011 ? '🟢 Rebond + or'
+    : y.year <= 2015 ? '🟡 Creux ressources'
+    : y.year <= 2017 ? '🟢 Cannabis + reprise'
+    : y.year <= 2019 ? '🟡 Volatilité'
+    : y.year === 2020 ? '🟢 Stimulus COVID'
+    : y.year === 2021 ? '🟢 Euphorie'
+    : y.year <= 2023 ? '🔴 Hausse taux'
+    : '🟡 Nouveau cycle';
+  return `<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:5px;font-size:0.75rem">
+    <span style="font-family:var(--mono);color:var(--muted);min-width:38px">${y.year}</span>
+    <div style="flex:1;height:14px;background:var(--bg3);border-radius:2px">
+      <div style="width:${w}%;height:100%;background:var(--accent);border-radius:2px;opacity:0.8"></div>
+    </div>
+    <span style="font-family:var(--mono);min-width:35px;text-align:right;color:var(--text)">${y.n}</span>
+    <span style="color:var(--muted);min-width:180px">${ctx}</span>
+    <span style="font-family:var(--mono);color:var(--accent2);min-width:55px">+${y.gain_median}%</span>
+  </div>`;
+}).join('');
+
+// ── Tabs ──────────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('top20Panel').style.display  = tab==='top20'  ? 'block' : 'none';
+  document.getElementById('statsPanel').style.display  = tab==='stats'  ? 'block' : 'none';
+  document.getElementById('yearsPanel').style.display  = tab==='years'  ? 'block' : 'none';
+}
+document.getElementById('statsPanel').style.display = 'none';
+document.getElementById('yearsPanel').style.display = 'none';
+
+// ── Recherche ─────────────────────────────────────────────────
 function handleSearch() {
   let val = document.getElementById('searchInput').value.trim().toUpperCase();
   if (!val) return;
   let ticker = val, exchange = 'V';
-  if (val.includes('.')) {
-    const parts = val.split('.');
-    ticker = parts[0];
-    exchange = parts[1] === 'TO' ? 'TO' : 'V';
-  }
+  if (val.includes('.')) { const p = val.split('.'); ticker = p[0]; exchange = p[1]==='TO'?'TO':'V'; }
   window.location.href = `stock.html?ticker=${ticker}&exchange=${exchange}`;
 }
+document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key==='Enter') handleSearch(); });
 
-document.getElementById('searchInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') handleSearch();
-});
-
-renderWatchlist();
-renderTop20();
+renderWL();
 </script>
 </body>
 </html>
