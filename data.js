@@ -1,101 +1,1009 @@
 // data.js — généré automatiquement par tsx_update.py
-// Dernière mise à jour : 2026-05-10 à 07:49
+// Dernière mise à jour : 2026-05-10 à 13:18
 // NE PAS MODIFIER MANUELLEMENT — relancer tsx_update.py
 
 const TSX_DATA = {
 
   meta: {
-    updated:       "2026-05-10 à 07:49",
-    data_date:     "2026-05-08",
-    total_rockets:  3514,
-    total_tickers:  8048,
-    period:        "2000-01-03 → 2026-05-08",
+    updated:      "2026-05-10 à 13:18",
+    data_date:    "2026-05-08",
+    total_rockets: 3514,
+    total_tickers: 8048,
+    period:       "2000-01-03 → 2026-05-08",
   },
 
   stats_global: {
-    n:            3514,
-    days_median:  282,
-    days_mean:    247,
-    days_std:     112,
-    days_q1:      136,
-    days_q3:      348,
-    days_min:     1,
-    days_max:     365,
-    gain_median:  250,
-    gain_mean:    1398,
-    gain_max:     2016550,
-  },
+    "n": 3514,
+    "days_median": 281.5,
+    "days_mean": 243.83437677859988,
+    "days_std": 115.66089209630819,
+    "days_q1": 145.0,
+    "days_q3": 353.0,
+    "days_min": 1.0,
+    "days_max": 365.0,
+    "gain_median": 250.0,
+    "gain_mean": 1397.7094763801933,
+    "gain_max": 2016550.3
+},
 
   stats_by_sector: [
-    { sector:"Or / Argent",          n:782,  days_median:290, days_mean:251, days_std:108, days_q1:145, days_q3:352, gain_median:250, gain_mean:412,  price_median:0.095 },
-    { sector:"Exploration générale", n:1195, days_median:285, days_mean:248, days_std:113, days_q1:138, days_q3:350, gain_median:250, gain_mean:1102, price_median:0.100 },
-    { sector:"Énergie / Pétrole",    n:270,  days_median:278, days_mean:242, days_std:109, days_q1:132, days_q3:344, gain_median:257, gain_mean:489,  price_median:0.110 },
-    { sector:"Métaux critiques",     n:178,  days_median:275, days_mean:239, days_std:107, days_q1:130, days_q3:340, gain_median:250, gain_mean:380,  price_median:0.092 },
-    { sector:"Technologies",         n:183,  days_median:260, days_mean:228, days_std:105, days_q1:120, days_q3:330, gain_median:268, gain_mean:520,  price_median:0.140 },
-    { sector:"Cannabis",             n:33,   days_median:235, days_mean:210, days_std:98,  days_q1:110, days_q3:310, gain_median:289, gain_mean:610,  price_median:0.160 },
-    { sector:"Crypto / Blockchain",  n:13,   days_median:185, days_mean:175, days_std:85,  days_q1:90,  days_q3:265, gain_median:300, gain_mean:720,  price_median:0.085 },
-    { sector:"Uranium",              n:25,   days_median:295, days_mean:255, days_std:115, days_q1:148, days_q3:355, gain_median:233, gain_mean:380,  price_median:0.140 },
-    { sector:"Autre",                n:835,  days_median:280, days_mean:245, days_std:110, days_q1:135, days_q3:346, gain_median:253, gain_mean:890,  price_median:0.135 },
-  ],
+    {
+        "sector": "Autre",
+        "n": 1419,
+        "days_median": 270.0,
+        "days_mean": 237.0,
+        "days_std": 117.0,
+        "days_q1": 133.0,
+        "days_q3": 350.0,
+        "gain_median": 258.0,
+        "gain_mean": 1066.0,
+        "price_median": 0.11
+    },
+    {
+        "sector": "Cannabis",
+        "n": 33,
+        "days_median": 238.0,
+        "days_mean": 215.0,
+        "days_std": 135.0,
+        "days_q1": 66.0,
+        "days_q3": 360.0,
+        "gain_median": 289.0,
+        "gain_mean": 851.0,
+        "price_median": 0.16
+    },
+    {
+        "sector": "Crypto / Blockchain",
+        "n": 13,
+        "days_median": 270.0,
+        "days_mean": 256.0,
+        "days_std": 121.0,
+        "days_q1": 208.0,
+        "days_q3": 364.0,
+        "gain_median": 300.0,
+        "gain_mean": 516.0,
+        "price_median": 0.085
+    },
+    {
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "n": 819,
+        "days_median": 290.0,
+        "days_mean": 247.0,
+        "days_std": 116.0,
+        "days_q1": 148.0,
+        "days_q3": 356.0,
+        "gain_median": 247.0,
+        "gain_mean": 3135.0,
+        "price_median": 0.09
+    },
+    {
+        "sector": "M\u00e9taux critiques",
+        "n": 184,
+        "days_median": 294.0,
+        "days_mean": 256.0,
+        "days_std": 109.0,
+        "days_q1": 176.0,
+        "days_q3": 352.0,
+        "gain_median": 252.0,
+        "gain_mean": 613.0,
+        "price_median": 0.1
+    },
+    {
+        "sector": "Or / Argent",
+        "n": 564,
+        "days_median": 286.0,
+        "days_mean": 251.0,
+        "days_std": 112.0,
+        "days_q1": 154.0,
+        "days_q3": 353.0,
+        "gain_median": 250.0,
+        "gain_mean": 598.0,
+        "price_median": 0.1
+    },
+    {
+        "sector": "Technologies",
+        "n": 178,
+        "days_median": 289.0,
+        "days_mean": 241.0,
+        "days_std": 120.0,
+        "days_q1": 134.0,
+        "days_q3": 351.0,
+        "gain_median": 262.0,
+        "gain_mean": 771.0,
+        "price_median": 0.1438
+    },
+    {
+        "sector": "Uranium",
+        "n": 27,
+        "days_median": 265.0,
+        "days_mean": 232.0,
+        "days_std": 111.0,
+        "days_q1": 152.0,
+        "days_q3": 330.0,
+        "gain_median": 233.0,
+        "gain_mean": 420.0,
+        "price_median": 0.13
+    },
+    {
+        "sector": "\u00c9nergie / P\u00e9trole",
+        "n": 277,
+        "days_median": 296.0,
+        "days_mean": 251.0,
+        "days_std": 114.0,
+        "days_q1": 157.0,
+        "days_q3": 356.0,
+        "gain_median": 256.0,
+        "gain_mean": 718.0,
+        "price_median": 0.11
+    }
+],
 
   stats_by_year: [
-    { year:2000, n:272, days_median:83,  days_std:95,  gain_median:327 },
-    { year:2001, n:205, days_median:270, days_std:108, gain_median:242 },
-    { year:2002, n:98,  days_median:338, days_std:48,  gain_median:244 },
-    { year:2003, n:105, days_median:285, days_std:102, gain_median:264 },
-    { year:2004, n:91,  days_median:309, days_std:98,  gain_median:254 },
-    { year:2005, n:119, days_median:331, days_std:78,  gain_median:233 },
-    { year:2006, n:83,  days_median:328, days_std:82,  gain_median:246 },
-    { year:2007, n:51,  days_median:290, days_std:95,  gain_median:256 },
-    { year:2008, n:327, days_median:306, days_std:88,  gain_median:257 },
-    { year:2009, n:162, days_median:293, days_std:105, gain_median:260 },
-    { year:2010, n:112, days_median:276, days_std:110, gain_median:268 },
-    { year:2011, n:94,  days_median:212, days_std:115, gain_median:274 },
-    { year:2012, n:128, days_median:238, days_std:112, gain_median:237 },
-    { year:2013, n:213, days_median:272, days_std:108, gain_median:250 },
-    { year:2014, n:102, days_median:214, days_std:118, gain_median:250 },
-    { year:2015, n:173, days_median:343, days_std:72,  gain_median:250 },
-    { year:2016, n:101, days_median:232, days_std:118, gain_median:290 },
-    { year:2017, n:118, days_median:235, days_std:115, gain_median:300 },
-    { year:2018, n:88,  days_median:204, days_std:120, gain_median:250 },
-    { year:2019, n:167, days_median:341, days_std:68,  gain_median:233 },
-    { year:2020, n:226, days_median:319, days_std:82,  gain_median:255 },
-    { year:2021, n:42,  days_median:190, days_std:125, gain_median:400 },
-    { year:2022, n:113, days_median:160, days_std:128, gain_median:223 },
-    { year:2023, n:129, days_median:320, days_std:80,  gain_median:233 },
-    { year:2024, n:117, days_median:328, days_std:76,  gain_median:233 },
-    { year:2025, n:72,  days_median:292, days_std:95,  gain_median:269 },
-    { year:2026, n:6,   days_median:48,  days_std:32,  gain_median:233 },
-  ],
+    {
+        "year": 2000,
+        "n": 272,
+        "days_median": 83.0,
+        "days_std": 106.0,
+        "gain_median": 327.0
+    },
+    {
+        "year": 2001,
+        "n": 205,
+        "days_median": 270.0,
+        "days_std": 113.0,
+        "gain_median": 242.0
+    },
+    {
+        "year": 2002,
+        "n": 98,
+        "days_median": 338.0,
+        "days_std": 100.0,
+        "gain_median": 244.0
+    },
+    {
+        "year": 2003,
+        "n": 105,
+        "days_median": 285.0,
+        "days_std": 102.0,
+        "gain_median": 264.0
+    },
+    {
+        "year": 2004,
+        "n": 91,
+        "days_median": 309.0,
+        "days_std": 92.0,
+        "gain_median": 254.0
+    },
+    {
+        "year": 2005,
+        "n": 119,
+        "days_median": 331.0,
+        "days_std": 86.0,
+        "gain_median": 233.0
+    },
+    {
+        "year": 2006,
+        "n": 83,
+        "days_median": 328.0,
+        "days_std": 83.0,
+        "gain_median": 246.0
+    },
+    {
+        "year": 2007,
+        "n": 51,
+        "days_median": 290.0,
+        "days_std": 116.0,
+        "gain_median": 256.0
+    },
+    {
+        "year": 2008,
+        "n": 327,
+        "days_median": 306.0,
+        "days_std": 107.0,
+        "gain_median": 257.0
+    },
+    {
+        "year": 2009,
+        "n": 162,
+        "days_median": 293.0,
+        "days_std": 98.0,
+        "gain_median": 260.0
+    },
+    {
+        "year": 2010,
+        "n": 112,
+        "days_median": 276.0,
+        "days_std": 105.0,
+        "gain_median": 268.0
+    },
+    {
+        "year": 2011,
+        "n": 94,
+        "days_median": 212.0,
+        "days_std": 128.0,
+        "gain_median": 274.0
+    },
+    {
+        "year": 2012,
+        "n": 128,
+        "days_median": 238.0,
+        "days_std": 121.0,
+        "gain_median": 237.0
+    },
+    {
+        "year": 2013,
+        "n": 213,
+        "days_median": 272.0,
+        "days_std": 115.0,
+        "gain_median": 250.0
+    },
+    {
+        "year": 2014,
+        "n": 102,
+        "days_median": 214.0,
+        "days_std": 119.0,
+        "gain_median": 250.0
+    },
+    {
+        "year": 2015,
+        "n": 173,
+        "days_median": 343.0,
+        "days_std": 110.0,
+        "gain_median": 250.0
+    },
+    {
+        "year": 2016,
+        "n": 101,
+        "days_median": 232.0,
+        "days_std": 102.0,
+        "gain_median": 290.0
+    },
+    {
+        "year": 2017,
+        "n": 118,
+        "days_median": 235.0,
+        "days_std": 111.0,
+        "gain_median": 300.0
+    },
+    {
+        "year": 2018,
+        "n": 88,
+        "days_median": 204.0,
+        "days_std": 129.0,
+        "gain_median": 250.0
+    },
+    {
+        "year": 2019,
+        "n": 167,
+        "days_median": 341.0,
+        "days_std": 106.0,
+        "gain_median": 233.0
+    },
+    {
+        "year": 2020,
+        "n": 226,
+        "days_median": 319.0,
+        "days_std": 104.0,
+        "gain_median": 255.0
+    },
+    {
+        "year": 2021,
+        "n": 42,
+        "days_median": 190.0,
+        "days_std": 123.0,
+        "gain_median": 400.0
+    },
+    {
+        "year": 2022,
+        "n": 113,
+        "days_median": 160.0,
+        "days_std": 118.0,
+        "gain_median": 223.0
+    },
+    {
+        "year": 2023,
+        "n": 129,
+        "days_median": 320.0,
+        "days_std": 108.0,
+        "gain_median": 233.0
+    },
+    {
+        "year": 2024,
+        "n": 117,
+        "days_median": 328.0,
+        "days_std": 110.0,
+        "gain_median": 233.0
+    },
+    {
+        "year": 2025,
+        "n": 72,
+        "days_median": 292.0,
+        "days_std": 105.0,
+        "gain_median": 269.0
+    },
+    {
+        "year": 2026,
+        "n": 6,
+        "days_median": 48.0,
+        "days_std": 22.0,
+        "gain_median": 233.0
+    }
+],
 
   top20: [
-    { rank:1,  ticker:"RPX",  exchange:"V", name:"Red Pine Exploration Inc",   sector:"Or / Argent",         score:76.1, last_close:0.2025, last_volume:1437506, vol_spike:1.1, price_slope:-0.004334, price_cv:0.0886, dist_from_low:1.5313, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:82,volMomentum:55,priceStability:82,lowProximity:43}, notes:"Projet Wawa Gold — PEA déposé mars 2026. NPV 523M$ CA. Financement 12.3M$ CA complété. Recommandation Strong Buy. Cible analystes : 0.82$.", price_trend:"down" },
-    { rank:2,  ticker:"CYG",  exchange:"V", name:"Cygnus Metals Ltd",          sector:"Énergie / Pétrole",   score:75.0, last_close:0.1300, last_volume:44135,   vol_spike:1.1, price_slope:-0.005154, price_cv:0.1283, dist_from_low:1.0,    last_date:"2026-05-08", years_active:[2000,2001,2008,2015,2020], gain_median:257, days_median:278, score_details:{patternMatch:75,volMomentum:60,priceStability:70,lowProximity:50}, notes:"Fusion Doré Copper complétée. 3 foreuses actives à Chibougamau. 25M$ AUS levés mars 2026. Cuivre-or-lithium. Double cotation TSX+ASX.", price_trend:"down" },
-    { rank:3,  ticker:"TWO",  exchange:"V", name:"T2 Metals Corp.",             sector:"Métaux critiques",    score:71.4, last_close:0.5000, last_volume:45000,   vol_spike:1.0, price_slope:-0.005294, price_cv:0.1053, dist_from_low:3.5455, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2015], gain_median:250, days_median:275, score_details:{patternMatch:71,volMomentum:50,priceStability:68,lowProximity:60}, notes:"", price_trend:"down" },
-    { rank:4,  ticker:"MN",   exchange:"V", name:"Manganese X Energy Corp",    sector:"Métaux critiques",    score:69.7, last_close:0.1150, last_volume:49972,   vol_spike:1.0, price_slope:-0.003509, price_cv:0.0750, dist_from_low:0.9167, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2015], gain_median:250, days_median:275, score_details:{patternMatch:70,volMomentum:50,priceStability:72,lowProximity:45}, notes:"", price_trend:"down" },
-    { rank:5,  ticker:"ROS",  exchange:"V", name:"Roscan Gold Corp",            sector:"Or / Argent",         score:66.3, last_close:0.1850, last_volume:38200,   vol_spike:1.1, price_slope:-0.004100, price_cv:0.1120, dist_from_low:2.7000, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:66,volMomentum:55,priceStability:65,lowProximity:58}, notes:"", price_trend:"down" },
-    { rank:6,  ticker:"AUME", exchange:"V", name:"Auriginal Mining Corp.",      sector:"Or / Argent",         score:65.8, last_close:0.0550, last_volume:22400,   vol_spike:1.1, price_slope:-0.003900, price_cv:0.1050, dist_from_low:2.6667, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:66,volMomentum:55,priceStability:64,lowProximity:62}, notes:"", price_trend:"down" },
-    { rank:7,  ticker:"NNX",  exchange:"V", name:"Nickel North Exploration",   sector:"Métaux critiques",    score:65.7, last_close:0.0450, last_volume:18500,   vol_spike:0.8, price_slope:-0.003200, price_cv:0.0980, dist_from_low:3.5000, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2015], gain_median:250, days_median:275, score_details:{patternMatch:66,volMomentum:40,priceStability:68,lowProximity:65}, notes:"", price_trend:"down" },
-    { rank:8,  ticker:"BEEP", exchange:"V", name:"Geiger Energy Corporation",  sector:"Énergie / Pétrole",   score:65.5, last_close:0.1950, last_volume:31200,   vol_spike:0.9, price_slope:-0.003700, price_cv:0.1100, dist_from_low:1.6000, last_date:"2026-05-08", years_active:[2000,2001,2008,2015,2020], gain_median:257, days_median:278, score_details:{patternMatch:66,volMomentum:45,priceStability:66,lowProximity:52}, notes:"", price_trend:"down" },
-    { rank:9,  ticker:"MCI",  exchange:"V", name:"Minnova Corp",               sector:"Or / Argent",         score:65.3, last_close:0.2600, last_volume:29800,   vol_spike:0.9, price_slope:-0.003500, price_cv:0.1080, dist_from_low:4.2000, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:65,volMomentum:45,priceStability:67,lowProximity:68}, notes:"", price_trend:"down" },
-    { rank:10, ticker:"CBIT", exchange:"V", name:"Cathedra Bitcoin Inc",       sector:"Crypto / Blockchain", score:64.3, last_close:0.3500, last_volume:42100,   vol_spike:0.9, price_slope:-0.003300, price_cv:0.1200, dist_from_low:7.7500, last_date:"2026-05-08", years_active:[2020,2021],                gain_median:300, days_median:185, score_details:{patternMatch:64,volMomentum:45,priceStability:62,lowProximity:72}, notes:"", price_trend:"down" },
-    { rank:11, ticker:"PPX",  exchange:"V", name:"PPX Mining Corp",            sector:"Or / Argent",         score:64.1, last_close:0.2500, last_volume:27600,   vol_spike:1.0, price_slope:-0.003400, price_cv:0.1050, dist_from_low:3.1667, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:64,volMomentum:50,priceStability:64,lowProximity:60}, notes:"", price_trend:"down" },
-    { rank:12, ticker:"VIPR", exchange:"V", name:"Silver Viper Minerals Co",   sector:"Or / Argent",         score:63.6, last_close:0.9100, last_volume:19300,   vol_spike:0.7, price_slope:-0.003100, price_cv:0.1030, dist_from_low:3.6667, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:64,volMomentum:35,priceStability:66,lowProximity:62}, notes:"", price_trend:"down" },
-    { rank:13, ticker:"FTRC", exchange:"V", name:"The FUTR Corporation",       sector:"Technologies",        score:63.5, last_close:0.2150, last_volume:24100,   vol_spike:0.7, price_slope:-0.002900, price_cv:0.1010, dist_from_low:0.3030, last_date:"2026-05-08", years_active:[2000,2001,2013,2017,2020], gain_median:268, days_median:260, score_details:{patternMatch:64,volMomentum:35,priceStability:65,lowProximity:30}, notes:"", price_trend:"down" },
-    { rank:14, ticker:"VG",   exchange:"V", name:"Volcanic Gold Mines Inc",    sector:"Or / Argent",         score:63.3, last_close:0.0950, last_volume:21500,   vol_spike:0.9, price_slope:-0.002800, price_cv:0.0990, dist_from_low:0.0560, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:63,volMomentum:45,priceStability:65,lowProximity:20}, notes:"", price_trend:"down" },
-    { rank:15, ticker:"AUMB", exchange:"V", name:"1911 Gold Corp",             sector:"Or / Argent",         score:63.3, last_close:0.8700, last_volume:17800,   vol_spike:0.7, price_slope:-0.002700, price_cv:0.1020, dist_from_low:3.7030, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:63,volMomentum:35,priceStability:66,lowProximity:62}, notes:"", price_trend:"down" },
-    { rank:16, ticker:"NMI",  exchange:"V", name:"Namibia Critical Metals",    sector:"Métaux critiques",    score:63.1, last_close:0.2300, last_volume:35400,   vol_spike:1.2, price_slope:-0.003000, price_cv:0.1060, dist_from_low:3.6000, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2015], gain_median:250, days_median:275, score_details:{patternMatch:63,volMomentum:60,priceStability:63,lowProximity:62}, notes:"", price_trend:"down" },
-    { rank:17, ticker:"LOT",  exchange:"V", name:"TomaGold Corporation",       sector:"Or / Argent",         score:63.0, last_close:0.0500, last_volume:19200,   vol_spike:0.9, price_slope:-0.002600, price_cv:0.0970, dist_from_low:1.5000, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:63,volMomentum:45,priceStability:64,lowProximity:48}, notes:"", price_trend:"down" },
-    { rank:18, ticker:"FAIR", exchange:"V", name:"Fairchild Gold Corp",        sector:"Or / Argent",         score:62.7, last_close:0.0700, last_volume:18100,   vol_spike:0.9, price_slope:-0.002500, price_cv:0.0960, dist_from_low:1.3330, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:63,volMomentum:45,priceStability:63,lowProximity:46}, notes:"", price_trend:"down" },
-    { rank:19, ticker:"MINE", exchange:"V", name:"Inomin Mines Inc",           sector:"Or / Argent",         score:62.5, last_close:0.1050, last_volume:48200,   vol_spike:1.4, price_slope:0.003100,  price_cv:0.0940, dist_from_low:4.2500, last_date:"2026-05-08", years_active:[2000,2001,2008,2013,2019], gain_median:250, days_median:290, score_details:{patternMatch:63,volMomentum:70,priceStability:60,lowProximity:68}, notes:"", price_trend:"up" },
-    { rank:20, ticker:"MHUB", exchange:"V", name:"Minehub Technologies Inc",   sector:"Technologies",        score:62.3, last_close:0.5500, last_volume:22300,   vol_spike:1.0, price_slope:-0.002400, price_cv:0.0950, dist_from_low:0.6670, last_date:"2026-05-08", years_active:[2000,2001,2013,2017,2020], gain_median:268, days_median:260, score_details:{patternMatch:62,volMomentum:50,priceStability:63,lowProximity:40}, notes:"", price_trend:"down" },
-  ],
+    {
+        "rank": 1,
+        "ticker": "CYG",
+        "exchange": "V",
+        "name": "CYGAM Energy Inc.",
+        "sector": "\u00c9nergie / P\u00e9trole",
+        "score": 81.1,
+        "last_close": 0.13,
+        "last_volume": 44135,
+        "vol_spike": 1.05,
+        "price_slope": -0.005154,
+        "price_cv": 0.1283,
+        "dist_from_low": 1.0,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2008,
+            2009,
+            2010,
+            2020
+        ],
+        "gain_median": 256.0,
+        "days_median": 296.0,
+        "score_details": {
+            "patternMatch": 85,
+            "volMomentum": 52,
+            "priceStability": 87,
+            "lowProximity": 45
+        },
+        "notes": "Fusion Dor\u00e9 Copper compl\u00e9t\u00e9e. 3 foreuses actives \u00e0 Chibougamau. 25M$ AUS lev\u00e9s mars 2026. Cuivre-or-lithium. Double cotation TSX+ASX.",
+        "price_trend": "down"
+    },
+    {
+        "rank": 2,
+        "ticker": "RPX",
+        "exchange": "V",
+        "name": "Red Pine Exploration Inc",
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "score": 80.4,
+        "last_close": 0.2025,
+        "last_volume": 1437506,
+        "vol_spike": 1.1,
+        "price_slope": -0.004334,
+        "price_cv": 0.0886,
+        "dist_from_low": 1.5313,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2005,
+            2008,
+            2013
+        ],
+        "gain_median": 247.0,
+        "days_median": 290.0,
+        "score_details": {
+            "patternMatch": 84,
+            "volMomentum": 55,
+            "priceStability": 91,
+            "lowProximity": 42
+        },
+        "notes": "Projet Wawa Gold \u2014 PEA d\u00e9pos\u00e9 mars 2026. NPV 523M$ CA. Financement 12.3M$ CA compl\u00e9t\u00e9. Recommandation Strong Buy. Cible analystes : 0.82$.",
+        "price_trend": "down"
+    },
+    {
+        "rank": 3,
+        "ticker": "MN",
+        "exchange": "V",
+        "name": "Manganese X Energy Corp",
+        "sector": "M\u00e9taux critiques",
+        "score": 75.5,
+        "last_close": 0.115,
+        "last_volume": 49972,
+        "vol_spike": 0.96,
+        "price_slope": -0.003509,
+        "price_cv": 0.075,
+        "dist_from_low": 0.9167,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2008,
+            2011,
+            2013,
+            2015
+        ],
+        "gain_median": 252.0,
+        "days_median": 294.0,
+        "score_details": {
+            "patternMatch": 79,
+            "volMomentum": 48,
+            "priceStability": 92,
+            "lowProximity": 45
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 4,
+        "ticker": "CBIT",
+        "exchange": "V",
+        "name": "Cathedra Bitcoin Inc",
+        "sector": "Crypto / Blockchain",
+        "score": 72.6,
+        "last_close": 0.35,
+        "last_volume": 5403,
+        "vol_spike": 0.92,
+        "price_slope": -0.00516,
+        "price_cv": 0.1451,
+        "dist_from_low": 7.75,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2008,
+            2013,
+            2017,
+            2024
+        ],
+        "gain_median": 300.0,
+        "days_median": 270.0,
+        "score_details": {
+            "patternMatch": 76,
+            "volMomentum": 46,
+            "priceStability": 85,
+            "lowProximity": 11
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 5,
+        "ticker": "VG",
+        "exchange": "V",
+        "name": "Volcanic Gold Mines Inc",
+        "sector": "Or / Argent",
+        "score": 71.4,
+        "last_close": 0.095,
+        "last_volume": 164000,
+        "vol_spike": 0.92,
+        "price_slope": -0.005051,
+        "price_cv": 0.0954,
+        "dist_from_low": 0.0556,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2008,
+            2013,
+            2019
+        ],
+        "gain_median": 250.0,
+        "days_median": 286.0,
+        "score_details": {
+            "patternMatch": 74,
+            "volMomentum": 46,
+            "priceStability": 90,
+            "lowProximity": 49
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 6,
+        "ticker": "FTRC",
+        "exchange": "V",
+        "name": "The FUTR Corporation",
+        "sector": "Technologies",
+        "score": 70.6,
+        "last_close": 0.215,
+        "last_volume": 24005,
+        "vol_spike": 0.7,
+        "price_slope": 0.003413,
+        "price_cv": 0.1304,
+        "dist_from_low": 0.303,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2017,
+            2019,
+            2020,
+            2023
+        ],
+        "gain_median": 262.0,
+        "days_median": 289.0,
+        "score_details": {
+            "patternMatch": 74,
+            "volMomentum": 35,
+            "priceStability": 86,
+            "lowProximity": 48
+        },
+        "notes": "",
+        "price_trend": "up"
+    },
+    {
+        "rank": 7,
+        "ticker": "BEEP",
+        "exchange": "V",
+        "name": "Geiger Energy Corporation",
+        "sector": "\u00c9nergie / P\u00e9trole",
+        "score": 68.2,
+        "last_close": 0.195,
+        "last_volume": 46650,
+        "vol_spike": 0.87,
+        "price_slope": -0.005681,
+        "price_cv": 0.1133,
+        "dist_from_low": 1.6,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2008,
+            2009,
+            2010,
+            2020
+        ],
+        "gain_median": 256.0,
+        "days_median": 296.0,
+        "score_details": {
+            "patternMatch": 71,
+            "volMomentum": 43,
+            "priceStability": 88,
+            "lowProximity": 42
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 8,
+        "ticker": "MHUB",
+        "exchange": "V",
+        "name": "Minehub Technologies Inc",
+        "sector": "Technologies",
+        "score": 68.0,
+        "last_close": 0.55,
+        "last_volume": 116613,
+        "vol_spike": 0.97,
+        "price_slope": -0.006033,
+        "price_cv": 0.137,
+        "dist_from_low": 0.6667,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2017,
+            2019,
+            2020,
+            2023
+        ],
+        "gain_median": 262.0,
+        "days_median": 289.0,
+        "score_details": {
+            "patternMatch": 71,
+            "volMomentum": 48,
+            "priceStability": 86,
+            "lowProximity": 46
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 9,
+        "ticker": "TWO",
+        "exchange": "V",
+        "name": "T2 Metals Corp.",
+        "sector": "M\u00e9taux critiques",
+        "score": 67.7,
+        "last_close": 0.5,
+        "last_volume": 45000,
+        "vol_spike": 0.96,
+        "price_slope": -0.005294,
+        "price_cv": 0.1053,
+        "dist_from_low": 3.5455,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2008,
+            2011,
+            2013,
+            2015
+        ],
+        "gain_median": 252.0,
+        "days_median": 294.0,
+        "score_details": {
+            "patternMatch": 71,
+            "volMomentum": 48,
+            "priceStability": 89,
+            "lowProximity": 32
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 10,
+        "ticker": "JJ",
+        "exchange": "V",
+        "name": "Jackpot Digital Inc",
+        "sector": "Technologies",
+        "score": 67.7,
+        "last_close": 0.06,
+        "last_volume": 126000,
+        "vol_spike": 0.86,
+        "price_slope": -0.004919,
+        "price_cv": 0.0905,
+        "dist_from_low": 0.2,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2017,
+            2019,
+            2020,
+            2023
+        ],
+        "gain_median": 262.0,
+        "days_median": 289.0,
+        "score_details": {
+            "patternMatch": 71,
+            "volMomentum": 43,
+            "priceStability": 90,
+            "lowProximity": 49
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 11,
+        "ticker": "GGI",
+        "exchange": "V",
+        "name": "Garibaldi Resources Corp.",
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "score": 67.3,
+        "last_close": 0.1,
+        "last_volume": 71030,
+        "vol_spike": 0.99,
+        "price_slope": -0.005393,
+        "price_cv": 0.1018,
+        "dist_from_low": 0.6667,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2005,
+            2008,
+            2013
+        ],
+        "gain_median": 247.0,
+        "days_median": 290.0,
+        "score_details": {
+            "patternMatch": 70,
+            "volMomentum": 49,
+            "priceStability": 89,
+            "lowProximity": 46
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 12,
+        "ticker": "ROX",
+        "exchange": "V",
+        "name": "Canstar Resources Inc",
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "score": 66.4,
+        "last_close": 0.05,
+        "last_volume": 185000,
+        "vol_spike": 0.94,
+        "price_slope": -0.004579,
+        "price_cv": 0.0905,
+        "dist_from_low": 0.0,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2005,
+            2008,
+            2013
+        ],
+        "gain_median": 247.0,
+        "days_median": 290.0,
+        "score_details": {
+            "patternMatch": 69,
+            "volMomentum": 47,
+            "priceStability": 90,
+            "lowProximity": 50
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 13,
+        "ticker": "EMO",
+        "exchange": "V",
+        "name": "Emerita Resources Corp",
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "score": 66.3,
+        "last_close": 0.395,
+        "last_volume": 741270,
+        "vol_spike": 0.83,
+        "price_slope": -0.005743,
+        "price_cv": 0.1075,
+        "dist_from_low": 0.5192,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2005,
+            2008,
+            2013
+        ],
+        "gain_median": 247.0,
+        "days_median": 290.0,
+        "score_details": {
+            "patternMatch": 69,
+            "volMomentum": 41,
+            "priceStability": 89,
+            "lowProximity": 47
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 14,
+        "ticker": "AEF",
+        "exchange": "V",
+        "name": "AE Fuels Corporation",
+        "sector": "\u00c9nergie / P\u00e9trole",
+        "score": 66.0,
+        "last_close": 0.185,
+        "last_volume": 11500,
+        "vol_spike": 0.9,
+        "price_slope": -0.005789,
+        "price_cv": 0.0937,
+        "dist_from_low": 0.4231,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2008,
+            2009,
+            2010,
+            2020
+        ],
+        "gain_median": 256.0,
+        "days_median": 296.0,
+        "score_details": {
+            "patternMatch": 69,
+            "volMomentum": 45,
+            "priceStability": 90,
+            "lowProximity": 47
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 15,
+        "ticker": "FAIR",
+        "exchange": "V",
+        "name": "Fairchild Gold Corp",
+        "sector": "Or / Argent",
+        "score": 66.0,
+        "last_close": 0.07,
+        "last_volume": 778000,
+        "vol_spike": 0.92,
+        "price_slope": -0.004714,
+        "price_cv": 0.1035,
+        "dist_from_low": 1.3333,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2008,
+            2013,
+            2019
+        ],
+        "gain_median": 250.0,
+        "days_median": 286.0,
+        "score_details": {
+            "patternMatch": 69,
+            "volMomentum": 46,
+            "priceStability": 89,
+            "lowProximity": 43
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 16,
+        "ticker": "MEK",
+        "exchange": "V",
+        "name": "Metals Creek Resources Corp",
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "score": 66.0,
+        "last_close": 0.035,
+        "last_volume": 252000,
+        "vol_spike": 0.85,
+        "price_slope": -0.002838,
+        "price_cv": 0.1371,
+        "dist_from_low": 0.75,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2005,
+            2008,
+            2013
+        ],
+        "gain_median": 247.0,
+        "days_median": 290.0,
+        "score_details": {
+            "patternMatch": 69,
+            "volMomentum": 42,
+            "priceStability": 86,
+            "lowProximity": 46
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 17,
+        "ticker": "LOT",
+        "exchange": "V",
+        "name": "TomaGold Corporation",
+        "sector": "Or / Argent",
+        "score": 65.7,
+        "last_close": 0.05,
+        "last_volume": 36500,
+        "vol_spike": 0.91,
+        "price_slope": -0.004391,
+        "price_cv": 0.0985,
+        "dist_from_low": 1.5,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2008,
+            2013,
+            2019
+        ],
+        "gain_median": 250.0,
+        "days_median": 286.0,
+        "score_details": {
+            "patternMatch": 68,
+            "volMomentum": 45,
+            "priceStability": 90,
+            "lowProximity": 42
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 18,
+        "ticker": "MRVL",
+        "exchange": "V",
+        "name": "Marvel Biosciences Corp",
+        "sector": "Autre",
+        "score": 65.7,
+        "last_close": 0.15,
+        "last_volume": 11500,
+        "vol_spike": 0.9,
+        "price_slope": 0.002638,
+        "price_cv": 0.0772,
+        "dist_from_low": 1.0,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2008,
+            2020,
+            2023
+        ],
+        "gain_median": 258.0,
+        "days_median": 270.0,
+        "score_details": {
+            "patternMatch": 68,
+            "volMomentum": 45,
+            "priceStability": 92,
+            "lowProximity": 45
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 19,
+        "ticker": "EGM",
+        "exchange": "V",
+        "name": "Engold Mines Inc",
+        "sector": "Or / Argent",
+        "score": 65.5,
+        "last_close": 0.06,
+        "last_volume": 49000,
+        "vol_spike": 0.64,
+        "price_slope": -0.00565,
+        "price_cv": 0.1405,
+        "dist_from_low": 0.5,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2008,
+            2013,
+            2019
+        ],
+        "gain_median": 250.0,
+        "days_median": 286.0,
+        "score_details": {
+            "patternMatch": 68,
+            "volMomentum": 32,
+            "priceStability": 85,
+            "lowProximity": 47
+        },
+        "notes": "",
+        "price_trend": "down"
+    },
+    {
+        "rank": 20,
+        "ticker": "BRON",
+        "exchange": "V",
+        "name": "Bronco Resources Corp.",
+        "sector": "Exploration g\u00e9n\u00e9rale",
+        "score": 65.4,
+        "last_close": 0.05,
+        "last_volume": 15000,
+        "vol_spike": 0.76,
+        "price_slope": -0.005927,
+        "price_cv": 0.1206,
+        "dist_from_low": 0.6667,
+        "last_date": "2026-05-08",
+        "years_active": [
+            2000,
+            2001,
+            2005,
+            2008,
+            2013
+        ],
+        "gain_median": 247.0,
+        "days_median": 290.0,
+        "score_details": {
+            "patternMatch": 68,
+            "volMomentum": 38,
+            "priceStability": 87,
+            "lowProximity": 46
+        },
+        "notes": "",
+        "price_trend": "down"
+    }
+],
 
   portfolio: [
-    { ticker:"RPX", exchange:"V", qty:500,  cost:0.203, current_price:0.2025, current_date:"2026-05-08", gain_pct:-0.25, gain_dollar:-0.13, value:101.25, rank:1,  score:76.1, in_top20:true },
-    { ticker:"CYG", exchange:"V", qty:770,  cost:0.130, current_price:0.1300, current_date:"2026-05-08", gain_pct:0.00,  gain_dollar:0.00,  value:100.10, rank:2,  score:75.0, in_top20:true },
-  ],
+    {
+        "ticker": "RPX",
+        "exchange": "V",
+        "qty": 500,
+        "cost": 0.203,
+        "current_price": 0.2025,
+        "current_date": "2026-05-08",
+        "gain_pct": -0.25,
+        "gain_dollar": -0.25,
+        "value": 101.25,
+        "rank": 2,
+        "score": 80.4,
+        "in_top20": true
+    },
+    {
+        "ticker": "CYG",
+        "exchange": "V",
+        "qty": 770,
+        "cost": 0.13,
+        "current_price": 0.13,
+        "current_date": "2026-05-08",
+        "gain_pct": 0.0,
+        "gain_dollar": 0.0,
+        "value": 100.1,
+        "rank": 1,
+        "score": 81.1,
+        "in_top20": true
+    }
+],
 
 };
 
+// Rendre accessible globalement
 window.TSX_DATA = TSX_DATA;
