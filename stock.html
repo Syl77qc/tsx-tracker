@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSX Rocket — Fiche titre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f; --bg2: #111318; --bg3: #181c22;
+    --border: rgba(255,255,255,0.07); --border2: rgba(255,255,255,0.13);
+    --text: #e8eaf0; --muted: #6b7280;
+    --accent: #f0b429; --accent2: #3ecf8e; --danger: #f87171;
+    --mono: 'Space Mono', monospace; --sans: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+
+  header {
+    border-bottom: 1px solid var(--border); padding: 1.25rem 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(10,12,15,0.92); backdrop-filter: blur(12px);
+  }
+  .logo { font-family: var(--mono); font-size: 1rem; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+  .logo span { color: var(--muted); }
+  .back-btn {
+    margin-left: auto; font-family: var(--mono); font-size: 0.75rem;
+    color: var(--muted); text-decoration: none; border: 1px solid var(--border);
+    padding: 0.35rem 0.75rem; border-radius: 6px; transition: color 0.15s, border-color 0.15s;
+  }
+  .back-btn:hover { color: var(--text); border-color: var(--border2); }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem; }
+
+  .stock-hero {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .stock-hero-left h1 {
+    font-family: var(--mono); font-size: 2rem; font-weight: 700;
+    color: var(--accent); margin-bottom: 0.25rem;
+  }
+  .stock-hero-left h1 span { color: var(--muted); font-size: 1rem; }
+  .stock-name { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .stock-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .tag {
+    font-family: var(--mono); font-size: 0.65rem; padding: 3px 8px;
+    border-radius: 4px; background: var(--bg3); color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .tag.hot { background: rgba(240,180,41,0.12); color: var(--accent); border-color: rgba(240,180,41,0.2); }
+
+  .price-hero { text-align: right; }
+  .price-big { font-family: var(--mono); font-size: 2.5rem; font-weight: 700; color: var(--accent2); }
+  .price-change { font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
+  .price-change.up { color: var(--accent2); }
+  .price-change.down { color: var(--danger); }
+
+  .watchlist-btn {
+    display: block; margin-top: 0.75rem;
+    background: var(--accent); color: #000; border: none;
+    padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer;
+    font-family: var(--mono); font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.05em; transition: opacity 0.15s; width: 100%;
+    text-align: center;
+  }
+  .watchlist-btn:hover { opacity: 0.85; }
+  .watchlist-btn.added { background: var(--bg3); color: var(--accent2); border: 1px solid var(--accent2); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1rem; }
+  @media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+  }
+  .card-title {
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 1rem;
+    padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+  }
+
+  .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-key { font-size: 0.8rem; color: var(--muted); }
+  .metric-val { font-family: var(--mono); font-size: 0.85rem; color: var(--text); }
+  .metric-val.good { color: var(--accent2); }
+  .metric-val.warn { color: var(--accent); }
+  .metric-val.bad { color: var(--danger); }
+
+  .score-display {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 1rem 0;
+  }
+  .score-circle {
+    width: 90px; height: 90px; border-radius: 50%;
+    border: 3px solid var(--accent);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 0 20px rgba(240,180,41,0.15);
+  }
+  .score-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent); line-height: 1; }
+  .score-denom { font-family: var(--mono); font-size: 0.6rem; color: var(--muted); }
+  .score-label { font-size: 0.75rem; color: var(--muted); text-align: center; }
+
+  .chart-container {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden; margin-bottom: 1rem;
+  }
+  .chart-header {
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);
+    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+  .signal-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .signal-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.6rem 0.75rem; border-radius: 8px;
+    background: var(--bg3); font-size: 0.82rem;
+  }
+  .signal-icon { font-size: 1rem; min-width: 20px; }
+  .signal-text { flex: 1; color: var(--text); }
+  .signal-text small { display: block; color: var(--muted); font-size: 0.72rem; }
+
+  .bar-wrap { margin-bottom: 0.75rem; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px; }
+  .bar-label span:first-child { color: var(--muted); }
+  .bar-label span:last-child { font-family: var(--mono); color: var(--text); }
+  .bar-track { height: 6px; background: var(--bg3); border-radius: 3px; }
+  .bar-fill { height: 100%; border-radius: 3px; background: var(--accent); transition: width 0.8s ease; }
+
+  .sim-table { width: 100%; }
+  .sim-table tr { border-bottom: 1px solid var(--border); }
+  .sim-table tr:last-child { border-bottom: none; }
+  .sim-table td { padding: 0.5rem 0; font-size: 0.82rem; }
+  .sim-table td:last-child { text-align: right; font-family: var(--mono); }
+  .sim-table .gain { color: var(--accent2); }
+  .sim-table .loss { color: var(--danger); }
+
+  .disclaimer {
+    margin-top: 3rem; padding: 1rem 1.25rem; border: 1px solid var(--border);
+    border-radius: 8px; font-size: 0.75rem; color: var(--muted); line-height: 1.6;
+    border-left: 3px solid var(--danger);
+  }
+
+  .not-found { text-align: center; padding: 5rem 2rem; }
+  .not-found h2 { font-family: var(--mono); color: var(--accent); margin-bottom: 1rem; }
+  .not-found p { color: var(--muted); }
+
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 0.75rem 1.25rem;
+    font-size: 0.85rem; font-family: var(--mono);
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.3s; pointer-events: none;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.ok { border-left: 3px solid var(--accent2); color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="index.html">TSX<span>.</span>ROCKET</a>
+  <a class="back-btn" href="index.html">← Retour</a>
+</header>
+
+<main id="mainContent">
+  <div class="not-found" id="loadingState">
+    <h2>Chargement...</h2>
+    <p>Récupération des données en cours.</p>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TOP20_DATA = {
+  'RPX.V':  { name:'Red Pine Exploration Inc', score:76.1, vol:1.1, priceRef:0.203, sector:'Or / Argent', priceTrend:'down', distLow:1.531, atr:0.036, scoreDetails:{ patternMatch:82, volMomentum:55, priceStability:82, lowProximity:43 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'Projet Wawa Gold — PEA déposé mars 2026. NPV 523M$. Financement 12.3M$ CA complété. Recommandation Strong Buy.' },
+  'CYG.V':  { name:'CYGAM Energy Inc.', score:75.0, vol:1.1, priceRef:0.130, sector:'Énergie / Pétrole', priceTrend:'down', distLow:1.0, atr:0.055, scoreDetails:{ patternMatch:75, volMomentum:60, priceStability:70, lowProximity:50 }, yearsActive:'2000, 2001, 2008, 2015, 2020', gainMedian:257, notes:'' },
+  'TWO.V':  { name:'T2 Metals Corp.', score:71.4, vol:1.0, priceRef:0.500, sector:'Métaux critiques', priceTrend:'down', distLow:3.546, atr:0.048, scoreDetails:{ patternMatch:71, volMomentum:50, priceStability:68, lowProximity:60 }, yearsActive:'2000, 2001, 2008, 2013, 2015', gainMedian:250, notes:'' },
+  'MN.V':   { name:'Manganese X Energy Corp', score:69.7, vol:1.0, priceRef:0.115, sector:'Métaux critiques', priceTrend:'down', distLow:0.917, atr:0.043, scoreDetails:{ patternMatch:70, volMomentum:50, priceStability:72, lowProximity:45 }, yearsActive:'2000, 2001, 2008, 2013, 2015', gainMedian:250, notes:'' },
+  'ROS.V':  { name:'Roscan Gold Corp', score:66.3, vol:1.1, priceRef:0.185, sector:'Or / Argent', priceTrend:'down', distLow:2.7, atr:0.042, scoreDetails:{ patternMatch:66, volMomentum:55, priceStability:65, lowProximity:58 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'AUME.V': { name:'Auriginal Mining Corp.', score:65.8, vol:1.1, priceRef:0.055, sector:'Or / Argent', priceTrend:'down', distLow:2.667, atr:0.038, scoreDetails:{ patternMatch:66, volMomentum:55, priceStability:64, lowProximity:62 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'NNX.V':  { name:'Nickel North Exploration', score:65.7, vol:0.8, priceRef:0.045, sector:'Métaux critiques', priceTrend:'down', distLow:3.5, atr:0.035, scoreDetails:{ patternMatch:66, volMomentum:40, priceStability:68, lowProximity:65 }, yearsActive:'2000, 2001, 2008, 2013, 2015', gainMedian:250, notes:'' },
+  'BEEP.V': { name:'Geiger Energy Corporation', score:65.5, vol:0.9, priceRef:0.195, sector:'Énergie / Pétrole', priceTrend:'down', distLow:1.6, atr:0.042, scoreDetails:{ patternMatch:66, volMomentum:45, priceStability:66, lowProximity:52 }, yearsActive:'2000, 2001, 2008, 2015, 2020', gainMedian:257, notes:'' },
+  'MCI.V':  { name:'Minnova Corp', score:65.3, vol:0.9, priceRef:0.260, sector:'Or / Argent', priceTrend:'down', distLow:4.2, atr:0.044, scoreDetails:{ patternMatch:65, volMomentum:45, priceStability:67, lowProximity:68 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'CBIT.V': { name:'Cathedra Bitcoin Inc', score:64.3, vol:0.9, priceRef:0.350, sector:'Crypto / Blockchain', priceTrend:'down', distLow:7.75, atr:0.052, scoreDetails:{ patternMatch:64, volMomentum:45, priceStability:62, lowProximity:72 }, yearsActive:'2020, 2021', gainMedian:300, notes:'' },
+  'PPX.V':  { name:'PPX Mining Corp', score:64.1, vol:1.0, priceRef:0.250, sector:'Or / Argent', priceTrend:'down', distLow:3.167, atr:0.044, scoreDetails:{ patternMatch:64, volMomentum:50, priceStability:64, lowProximity:60 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'VIPR.V': { name:'Silver Viper Minerals Co', score:63.6, vol:0.7, priceRef:0.910, sector:'Or / Argent', priceTrend:'down', distLow:3.667, atr:0.043, scoreDetails:{ patternMatch:64, volMomentum:35, priceStability:66, lowProximity:62 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'FTRC.V': { name:'The FUTR Corporation', score:63.5, vol:0.7, priceRef:0.215, sector:'Technologies', priceTrend:'down', distLow:0.303, atr:0.041, scoreDetails:{ patternMatch:64, volMomentum:35, priceStability:65, lowProximity:30 }, yearsActive:'2000, 2001, 2013, 2017, 2020', gainMedian:268, notes:'' },
+  'VG.V':   { name:'Volcanic Gold Mines Inc', score:63.3, vol:0.9, priceRef:0.095, sector:'Or / Argent', priceTrend:'down', distLow:0.056, atr:0.038, scoreDetails:{ patternMatch:63, volMomentum:45, priceStability:65, lowProximity:20 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'AUMB.V': { name:'1911 Gold Corp', score:63.3, vol:0.7, priceRef:0.870, sector:'Or / Argent', priceTrend:'down', distLow:3.703, atr:0.042, scoreDetails:{ patternMatch:63, volMomentum:35, priceStability:66, lowProximity:62 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'NMI.V':  { name:'Namibia Critical Metals', score:63.1, vol:1.2, priceRef:0.230, sector:'Métaux critiques', priceTrend:'down', distLow:3.6, atr:0.043, scoreDetails:{ patternMatch:63, volMomentum:60, priceStability:63, lowProximity:62 }, yearsActive:'2000, 2001, 2008, 2013, 2015', gainMedian:250, notes:'' },
+  'LOT.V':  { name:'TomaGold Corporation', score:63.0, vol:0.9, priceRef:0.050, sector:'Or / Argent', priceTrend:'down', distLow:1.5, atr:0.037, scoreDetails:{ patternMatch:63, volMomentum:45, priceStability:64, lowProximity:48 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'FAIR.V': { name:'Fairchild Gold Corp', score:62.7, vol:0.9, priceRef:0.070, sector:'Or / Argent', priceTrend:'down', distLow:1.333, atr:0.036, scoreDetails:{ patternMatch:63, volMomentum:45, priceStability:63, lowProximity:46 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'MINE.V': { name:'Inomin Mines Inc', score:62.5, vol:1.4, priceRef:0.105, sector:'Or / Argent', priceTrend:'up', distLow:4.25, atr:0.040, scoreDetails:{ patternMatch:63, volMomentum:70, priceStability:60, lowProximity:68 }, yearsActive:'2000, 2001, 2008, 2013, 2019', gainMedian:250, notes:'' },
+  'MHUB.V': { name:'Minehub Technologies Inc', score:62.3, vol:1.0, priceRef:0.550, sector:'Technologies', priceTrend:'down', distLow:0.667, atr:0.041, scoreDetails:{ patternMatch:62, volMomentum:50, priceStability:63, lowProximity:40 }, yearsActive:'2000, 2001, 2013, 2017, 2020', gainMedian:268, notes:'' },
+};
+
+function getParams() {
+  const p = new URLSearchParams(window.location.search);
+  return { ticker: p.get('ticker') || '', exchange: p.get('exchange') || 'V' };
+}
+
+function getWatchlist() {
+  try { return JSON.parse(localStorage.getItem('tsx_watchlist') || '[]'); } catch { return []; }
+}
+function saveWatchlist(list) { localStorage.setItem('tsx_watchlist', JSON.stringify(list)); }
+
+function showToast(msg, type='ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 2500);
+}
+
+function isInWatchlist(ticker, exchange) {
+  return getWatchlist().some(i => i.ticker === ticker && i.exchange === exchange);
+}
+
+function toggleWatchlist(ticker, exchange, data) {
+  let list = getWatchlist();
+  const key = ticker + '.' + exchange;
+  if (isInWatchlist(ticker, exchange)) {
+    list = list.filter(i => !(i.ticker === ticker && i.exchange === exchange));
+    saveWatchlist(list);
+    updateWatchlistBtn(false, ticker, exchange, data);
+    showToast('Retiré de la watchlist');
+  } else {
+    list.push({ ticker, exchange, name: data.name, score: data.score, vol: data.vol, sector: data.sector });
+    saveWatchlist(list);
+    updateWatchlistBtn(true, ticker, exchange, data);
+    showToast('Ajouté à ta watchlist ✓');
+  }
+}
+
+function updateWatchlistBtn(inList, ticker, exchange, data) {
+  const btn = document.getElementById('watchlistBtn');
+  if (!btn) return;
+  if (inList) {
+    btn.textContent = '✓ Dans ma watchlist'; btn.className = 'watchlist-btn added';
+  } else {
+    btn.textContent = '+ Ajouter à ma watchlist'; btn.className = 'watchlist-btn';
+  }
+  btn.onclick = () => toggleWatchlist(ticker, exchange, data);
+}
+
+async function fetchLivePrice(ticker, exchange) {
+  const suffix = exchange === 'V' ? '.V' : '.TO';
+  const yTicker = ticker + suffix;
+  try {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yTicker}?interval=1d&range=5d`;
+    const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+    const d = await r.json();
+    const meta = d?.chart?.result?.[0]?.meta;
+    if (!meta) return null;
+    return {
+      price: meta.regularMarketPrice,
+      prevClose: meta.chartPreviousClose || meta.previousClose,
+      high52: meta.fiftyTwoWeekHigh,
+      low52: meta.fiftyTwoWeekLow,
+      volume: meta.regularMarketVolume,
+      currency: meta.currency || 'CAD',
+    };
+  } catch { return null; }
+}
+
+function volSignal(v) {
+  if (v >= 1.2) return { icon:'🔥', label:'Volume en forte hausse', detail:`${v.toFixed(1)}x la moyenne 30j — signal fort d'intérêt` };
+  if (v >= 1.0) return { icon:'📈', label:'Volume en légère hausse', detail:`${v.toFixed(1)}x la moyenne 30j — intérêt croissant` };
+  return { icon:'😴', label:'Volume calme', detail:`${v.toFixed(1)}x la moyenne 30j — peu d'activité` };
+}
+
+function priceTrendSignal(trend) {
+  if (trend === 'up') return { icon:'↑', label:'Prix en hausse', detail:'Tendance haussière récente' };
+  return { icon:'↓', label:'Prix en légère baisse', detail:'Pattern accumulation silencieuse — cohérent avec profil fusée' };
+}
+
+function renderPage(ticker, exchange, data, liveData) {
+  const key = ticker + '.' + exchange;
+  const price = liveData?.price ?? data.priceRef;
+  const prevClose = liveData?.prevClose ?? data.priceRef;
+  const change = price - prevClose;
+  const changePct = prevClose ? (change / prevClose) * 100 : 0;
+  const changeClass = change >= 0 ? 'up' : 'down';
+  const changeStr = (change >= 0 ? '+' : '') + change.toFixed(3) + ' $ (' + (changePct >= 0 ? '+' : '') + changePct.toFixed(2) + '%)';
+
+  const inList = isInWatchlist(ticker, exchange);
+  const vol = volSignal(data.vol);
+  const trend = priceTrendSignal(data.priceTrend);
+
+  const mise100 = 100 / price;
+  const cibles = [
+    { label:'Gain médian historique', mult: 1 + data.gainMedian/100 },
+    { label:'+300%', mult: 4 },
+    { label:'+500%', mult: 6 },
+    { label:'+1000%', mult: 11 },
+  ];
+
+  const yTicker = ticker + (exchange === 'V' ? '.V' : '.TO');
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="stock-hero">
+      <div class="stock-hero-left">
+        <h1>${ticker} <span>.${exchange}</span></h1>
+        <div class="stock-name">${data.name}</div>
+        <div class="stock-tags">
+          <span class="tag">${exchange === 'V' ? 'TSXV' : 'TSX'}</span>
+          <span class="tag">${data.sector}</span>
+          ${data.score >= 70 ? '<span class="tag hot">Score élevé</span>' : ''}
+        </div>
+      </div>
+      <div class="price-hero">
+        <div class="price-big" id="livePriceDisplay">${price.toFixed(3)} $</div>
+        <div class="price-change ${changeClass}">${changeStr}</div>
+        <button class="watchlist-btn ${inList ? 'added' : ''}" id="watchlistBtn"
+          onclick="toggleWatchlist('${ticker}','${exchange}', TOP20_DATA['${key}'])">
+          ${inList ? '✓ Dans ma watchlist' : '+ Ajouter à ma watchlist'}
+        </button>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-header">
+        <div class="live-dot"></div>
+        Graphique — ${ticker}.${exchange} via TradingView
+      </div>
+      <div id="tv_chart_${ticker}"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-title">Score algorithmique</div>
+        <div class="score-display">
+          <div class="score-circle">
+            <div class="score-num">${data.score.toFixed(0)}</div>
+            <div class="score-denom">/100</div>
+          </div>
+          <div class="score-label">Ressemblance au profil historique d'une fusée.<br>Basé sur 3 514 titres ayant fait +200% (2000–2026).</div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label"><span>Correspondance pattern</span><span>${data.scoreDetails.patternMatch}%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${data.scoreDetails.patternMatch}%"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label"><span>Momentum volume</span><span>${data.scoreDetails.volMomentum}%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${data.scoreDetails.volMomentum}%;background:var(--accent2)"></div></div>
+        </div>
+        <div class="bar-wrap">
+          <div class="bar-label"><span>Stabilité du prix</span><span>${data.scoreDetails.priceStability}%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:${data.scoreDetails.priceStability}%"></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Signaux pré-lancement</div>
+        <div class="signal-list">
+          <div class="signal-item">
+            <div class="signal-icon">${vol.icon}</div>
+            <div class="signal-text">${vol.label}<small>${vol.detail}</small></div>
+          </div>
+          <div class="signal-item">
+            <div class="signal-icon">${trend.icon}</div>
+            <div class="signal-text">${trend.label}<small>${trend.detail}</small></div>
+          </div>
+          <div class="signal-item">
+            <div class="signal-icon">📍</div>
+            <div class="signal-text">Distance plancher 52s<small>${(data.distLow * 100).toFixed(0)}% au-dessus du bas annuel</small></div>
+          </div>
+          <div class="signal-item">
+            <div class="signal-icon">📅</div>
+            <div class="signal-text">Années similaires actives<small>${data.yearsActive}</small></div>
+          </div>
+          ${data.notes ? `<div class="signal-item"><div class="signal-icon">📌</div><div class="signal-text">Note analystes<small>${data.notes}</small></div></div>` : ''}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Données de marché</div>
+        <div class="metric-row"><span class="metric-key">Prix actuel</span><span class="metric-val good">${price.toFixed(3)} $ CA</span></div>
+        <div class="metric-row"><span class="metric-key">52s haut</span><span class="metric-val">${liveData?.high52 ? liveData.high52.toFixed(3) + ' $' : '—'}</span></div>
+        <div class="metric-row"><span class="metric-key">52s bas</span><span class="metric-val">${liveData?.low52 ? liveData.low52.toFixed(3) + ' $' : '—'}</span></div>
+        <div class="metric-row"><span class="metric-key">Volume jour</span><span class="metric-val">${liveData?.volume ? liveData.volume.toLocaleString('fr-CA') : '—'}</span></div>
+        <div class="metric-row"><span class="metric-key">Secteur</span><span class="metric-val">${data.sector}</span></div>
+        <div class="metric-row"><span class="metric-key">Gain médian historique</span><span class="metric-val warn">+${data.gainMedian}%</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Simulation — mise de 100 $</div>
+        <table class="sim-table">
+          <tr><td style="color:var(--muted);font-size:0.75rem">Actions à ${price.toFixed(3)}$</td><td style="font-family:var(--mono)">${Math.floor(mise100)} actions</td></tr>
+          ${cibles.map(c => `<tr>
+            <td>${c.label}</td>
+            <td class="gain">+ ${Math.round(mise100 * price * c.mult - 100).toLocaleString('fr-CA')} $ → ${(price * c.mult).toFixed(2)}$</td>
+          </tr>`).join('')}
+          <tr><td style="color:var(--muted)">Si ça va à 0$</td><td class="loss">- 100 $</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ Analyse à titre informatif uniquement. Les penny stocks sont des investissements à très haut risque. Ce score est basé sur des patterns historiques statistiques et ne constitue pas un conseil financier. Ne jamais investir plus que ce qu'on est prêt à perdre entièrement.
+    </div>
+  `;
+
+  new TradingView.widget({
+    width: '100%', height: 400,
+    symbol: `TSXV:${ticker}`,
+    interval: 'D', timezone: 'America/Toronto',
+    theme: 'dark', style: '1', locale: 'fr',
+    toolbar_bg: '#111318', enable_publishing: false,
+    allow_symbol_change: false,
+    container_id: `tv_chart_${ticker}`,
+    hide_side_toolbar: false,
+  });
+}
+
+function renderUnknown(ticker, exchange) {
+  const key = ticker + '.' + exchange;
+  const liveSection = document.getElementById('mainContent');
+  liveSection.innerHTML = `
+    <div class="stock-hero">
+      <div class="stock-hero-left">
+        <h1>${ticker} <span>.${exchange}</span></h1>
+        <div class="stock-name">Titre non dans le top 20 algorithmique</div>
+        <div class="stock-tags">
+          <span class="tag">${exchange === 'V' ? 'TSXV' : 'TSX'}</span>
+        </div>
+      </div>
+      <div class="price-hero">
+        <div class="price-big" id="livePriceDisplay">— $</div>
+        <button class="watchlist-btn" id="watchlistBtn"
+          onclick="toggleWatchlist('${ticker}','${exchange}', {name:'${ticker}', score:0, vol:1, sector:'—'})">
+          + Ajouter à ma watchlist
+        </button>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-header"><div class="live-dot"></div>Graphique — ${ticker}.${exchange}</div>
+      <div id="tv_chart_${ticker}"></div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <div class="card-title">Note</div>
+      <p style="color:var(--muted);font-size:0.85rem;line-height:1.6">
+        Ce titre n'est pas dans notre top 20 algorithmique du 10 mai 2026.<br>
+        Le graphique et le prix live sont affichés. Aucune donnée de score disponible.<br>
+        Relance <code style="color:var(--accent);font-size:0.8rem">tsx_analyzer.py</code> pour mettre à jour le classement.
+      </p>
+    </div>
+    <div class="disclaimer" style="margin-top:1rem">
+      ⚠️ Analyse à titre informatif uniquement. Investissement à très haut risque.
+    </div>
+  `;
+
+  fetchLivePrice(ticker, exchange).then(d => {
+    if (d) document.getElementById('livePriceDisplay').textContent = d.price.toFixed(3) + ' $';
+  });
+
+  new TradingView.widget({
+    width: '100%', height: 400, symbol: `TSXV:${ticker}`,
+    interval: 'D', timezone: 'America/Toronto',
+    theme: 'dark', style: '1', locale: 'fr',
+    toolbar_bg: '#111318', enable_publishing: false,
+    container_id: `tv_chart_${ticker}`,
+  });
+}
+
+async function init() {
+  const { ticker, exchange } = getParams();
+  if (!ticker) { window.location.href = 'index.html'; return; }
+  document.title = `${ticker}.${exchange} — TSX Rocket`;
+  const key = ticker + '.' + exchange;
+  const data = TOP20_DATA[key];
+  const liveData = await fetchLivePrice(ticker, exchange);
+  if (data) {
+    renderPage(ticker, exchange, data, liveData);
+  } else {
+    renderUnknown(ticker, exchange);
+  }
+}
+
+window.TOP20_DATA = TOP20_DATA;
+</script>
+
+<script src="https://s3.tradingview.com/tv.js" onload="init()"></script>
+</body>
+</html>

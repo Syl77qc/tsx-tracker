@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TSX Rocket Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111318;
+    --bg3: #181c22;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --accent: #f0b429;
+    --accent2: #3ecf8e;
+    --danger: #f87171;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; }
+
+  .noise {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    display: flex; align-items: center; gap: 1rem;
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(10,12,15,0.92);
+    backdrop-filter: blur(12px);
+  }
+  .logo { font-family: var(--mono); font-size: 1rem; color: var(--accent); letter-spacing: -0.02em; }
+  .logo span { color: var(--muted); }
+  .header-sub { font-size: 0.75rem; color: var(--muted); margin-left: auto; font-family: var(--mono); }
+
+  main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; position: relative; z-index: 1; }
+
+  .hero { margin-bottom: 3rem; }
+  .hero h1 {
+    font-family: var(--mono); font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; line-height: 1.1; color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero p { color: var(--muted); font-size: 0.9rem; max-width: 480px; line-height: 1.6; }
+
+  .search-box {
+    display: flex; gap: 0.75rem; margin-bottom: 3rem;
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 10px; padding: 0.75rem 1rem;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus-within { border-color: var(--accent); }
+  .search-box input {
+    flex: 1; background: none; border: none; outline: none;
+    color: var(--text); font-family: var(--mono); font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .search-box input::placeholder { color: var(--muted); }
+  .search-box button {
+    background: var(--accent); color: #000; border: none;
+    padding: 0.5rem 1.25rem; border-radius: 6px; cursor: pointer;
+    font-family: var(--mono); font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.05em; transition: opacity 0.15s;
+  }
+  .search-box button:hover { opacity: 0.85; }
+
+  .section-label {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .watchlist-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem; margin-bottom: 3rem;
+  }
+
+  .stock-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+    text-decoration: none; display: block; position: relative;
+    overflow: hidden;
+  }
+  .stock-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .stock-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .stock-card:hover::before { transform: scaleX(1); }
+
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+  .card-ticker { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--accent); }
+  .card-exchange { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); background: var(--bg3); padding: 2px 6px; border-radius: 4px; }
+  .card-name { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.3; }
+
+  .card-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .metric { }
+  .metric-label { font-size: 0.65rem; color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+  .metric-value { font-size: 1rem; font-weight: 500; font-family: var(--mono); color: var(--text); }
+  .metric-value.live { color: var(--accent2); }
+  .metric-value.score-high { color: var(--accent); }
+
+  .score-bar { height: 3px; background: var(--bg3); border-radius: 2px; margin-top: 6px; }
+  .score-fill { height: 100%; border-radius: 2px; background: var(--accent); transition: width 0.6s ease; }
+
+  .vol-badge {
+    display: inline-block; font-size: 0.65rem; font-family: var(--mono);
+    padding: 2px 7px; border-radius: 4px; margin-top: 6px;
+  }
+  .vol-hot { background: rgba(240,180,41,0.15); color: var(--accent); }
+  .vol-ok { background: rgba(62,207,142,0.12); color: var(--accent2); }
+  .vol-cold { background: rgba(107,114,128,0.15); color: var(--muted); }
+
+  .remove-btn {
+    position: absolute; top: 0.75rem; right: 0.75rem;
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 0.75rem; padding: 2px 5px; border-radius: 4px;
+    opacity: 0; transition: opacity 0.15s, color 0.15s;
+  }
+  .stock-card:hover .remove-btn { opacity: 1; }
+  .remove-btn:hover { color: var(--danger); }
+
+  .top20-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+  .top20-row {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1rem 1.25rem;
+    display: flex; align-items: center; gap: 1rem;
+    cursor: pointer; transition: border-color 0.2s;
+    text-decoration: none;
+  }
+  .top20-row:hover { border-color: var(--border2); }
+  .rank { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); min-width: 24px; }
+  .rank.top3 { color: var(--accent); }
+  .top20-info { flex: 1; }
+  .top20-ticker { font-family: var(--mono); font-size: 0.9rem; font-weight: 700; color: var(--text); }
+  .top20-name { font-size: 0.75rem; color: var(--muted); }
+  .top20-score { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); text-align: right; }
+
+  .empty-watchlist {
+    border: 1px dashed var(--border2); border-radius: 12px;
+    padding: 3rem; text-align: center; color: var(--muted);
+    grid-column: 1/-1;
+  }
+  .empty-watchlist p { font-size: 0.9rem; line-height: 1.6; }
+  .empty-watchlist code { font-family: var(--mono); color: var(--accent); font-size: 0.85rem; }
+
+  .disclaimer {
+    margin-top: 4rem; padding: 1.25rem; border: 1px solid var(--border);
+    border-radius: 8px; font-size: 0.75rem; color: var(--muted); line-height: 1.6;
+    border-left: 3px solid var(--danger);
+  }
+
+  .loading-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: pulse 1.2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 8px; padding: 0.75rem 1.25rem;
+    font-size: 0.85rem; font-family: var(--mono);
+    transform: translateY(100px); opacity: 0;
+    transition: all 0.3s; pointer-events: none;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.ok { border-left: 3px solid var(--accent2); color: var(--accent2); }
+  .toast.err { border-left: 3px solid var(--danger); color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<header>
+  <div class="logo">TSX<span>.</span>ROCKET</div>
+  <div class="header-sub">TSX · TSXV &nbsp;|&nbsp; Données: Yahoo Finance</div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Penny stocks.<br><em>Patterns.</em> Opportunités.</h1>
+    <p>Tracker personnel basé sur l'analyse de 3 514 fusées historiques (2000–2026). Pour usage informatif uniquement.</p>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Entrer un ticker : RPX.V, MN.V, NMI.V ..." autocomplete="off" spellcheck="false">
+    <button onclick="handleSearch()">ANALYSER →</button>
+  </div>
+
+  <div class="section-label">Ma watchlist <span id="watchlist-count">0 titre</span></div>
+  <div class="watchlist-grid" id="watchlistGrid">
+    <div class="empty-watchlist">
+      <p>Ta watchlist est vide.<br>Recherche un ticker ci-dessus ou ajoute un titre depuis sa fiche.<br><br>Exemples : <code>RPX.V</code> &nbsp; <code>MN.V</code> &nbsp; <code>MINE.V</code></p>
+    </div>
+  </div>
+
+  <div class="section-label">Top 20 algorithme — mai 2026</div>
+  <div class="top20-grid" id="top20Grid"></div>
+
+  <div class="disclaimer">
+    ⚠️ Ce tracker est à titre informatif uniquement. Les penny stocks sont des investissements à très haut risque. Les patterns historiques ne garantissent aucun rendement futur. Ne jamais investir plus que ce qu'on est prêt à perdre entièrement.
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TOP20 = [
+  { ticker:'RPX', exchange:'V', name:'Red Pine Exploration Inc', score:76.1, price:0.203, vol:1.1, sector:'Or / Argent' },
+  { ticker:'CYG', exchange:'V', name:'CYGAM Energy Inc.', score:75.0, price:0.130, vol:1.1, sector:'Énergie' },
+  { ticker:'TWO', exchange:'V', name:'T2 Metals Corp.', score:71.4, price:0.500, vol:1.0, sector:'Métaux critiques' },
+  { ticker:'MN',  exchange:'V', name:'Manganese X Energy Corp', score:69.7, price:0.115, vol:1.0, sector:'Métaux critiques' },
+  { ticker:'ROS', exchange:'V', name:'Roscan Gold Corp', score:66.3, price:0.185, vol:1.1, sector:'Or / Argent' },
+  { ticker:'AUME',exchange:'V', name:'Auriginal Mining Corp.', score:65.8, price:0.055, vol:1.1, sector:'Or / Argent' },
+  { ticker:'NNX', exchange:'V', name:'Nickel North Exploration', score:65.7, price:0.045, vol:0.8, sector:'Métaux critiques' },
+  { ticker:'BEEP',exchange:'V', name:'Geiger Energy Corporation', score:65.5, price:0.195, vol:0.9, sector:'Énergie' },
+  { ticker:'MCI', exchange:'V', name:'Minnova Corp', score:65.3, price:0.260, vol:0.9, sector:'Or / Argent' },
+  { ticker:'CBIT',exchange:'V', name:'Cathedra Bitcoin Inc', score:64.3, price:0.350, vol:0.9, sector:'Crypto' },
+  { ticker:'PPX', exchange:'V', name:'PPX Mining Corp', score:64.1, price:0.250, vol:1.0, sector:'Or / Argent' },
+  { ticker:'VIPR',exchange:'V', name:'Silver Viper Minerals Co', score:63.6, price:0.910, vol:0.7, sector:'Or / Argent' },
+  { ticker:'FTRC',exchange:'V', name:'The FUTR Corporation', score:63.5, price:0.215, vol:0.7, sector:'Tech' },
+  { ticker:'VG',  exchange:'V', name:'Volcanic Gold Mines Inc', score:63.3, price:0.095, vol:0.9, sector:'Or / Argent' },
+  { ticker:'AUMB',exchange:'V', name:'1911 Gold Corp', score:63.3, price:0.870, vol:0.7, sector:'Or / Argent' },
+  { ticker:'NMI', exchange:'V', name:'Namibia Critical Metals', score:63.1, price:0.230, vol:1.2, sector:'Métaux critiques' },
+  { ticker:'LOT', exchange:'V', name:'TomaGold Corporation', score:63.0, price:0.050, vol:0.9, sector:'Or / Argent' },
+  { ticker:'FAIR',exchange:'V', name:'Fairchild Gold Corp', score:62.7, price:0.070, vol:0.9, sector:'Or / Argent' },
+  { ticker:'MINE',exchange:'V', name:'Inomin Mines Inc', score:62.5, price:0.105, vol:1.4, sector:'Or / Argent' },
+  { ticker:'MHUB',exchange:'V', name:'Minehub Technologies Inc', score:62.3, price:0.550, vol:1.0, sector:'Tech' },
+];
+
+function getWatchlist() {
+  try { return JSON.parse(localStorage.getItem('tsx_watchlist') || '[]'); }
+  catch { return []; }
+}
+function saveWatchlist(list) {
+  localStorage.setItem('tsx_watchlist', JSON.stringify(list));
+}
+
+function showToast(msg, type='ok') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show ' + type;
+  setTimeout(() => { t.className = 'toast'; }, 2500);
+}
+
+function volBadge(v) {
+  if (v >= 1.2) return `<span class="vol-badge vol-hot">🔥 VOL ${v.toFixed(1)}x</span>`;
+  if (v >= 1.0) return `<span class="vol-badge vol-ok">↑ VOL ${v.toFixed(1)}x</span>`;
+  return `<span class="vol-badge vol-cold">VOL ${v.toFixed(1)}x</span>`;
+}
+
+function scoreColor(s) {
+  if (s >= 70) return 'score-high';
+  if (s >= 60) return '';
+  return '';
+}
+
+function buildStockCard(item, inWatchlist=true) {
+  const key = item.ticker + '.' + item.exchange;
+  const card = document.createElement('a');
+  card.className = 'stock-card';
+  card.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
+  card.innerHTML = `
+    ${inWatchlist ? `<button class="remove-btn" data-key="${key}" title="Retirer">✕</button>` : ''}
+    <div class="card-header">
+      <div>
+        <div class="card-ticker">${item.ticker}</div>
+        <div class="card-exchange">${item.exchange === 'V' ? 'TSXV' : 'TSX'}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="metric-value live" id="price-${key}">
+          <span class="loading-dot"></span>
+        </div>
+        <div style="font-size:0.65rem;color:var(--muted);font-family:var(--mono);">live</div>
+      </div>
+    </div>
+    <div class="card-name">${item.name}</div>
+    <div class="card-metrics">
+      <div class="metric">
+        <div class="metric-label">Score</div>
+        <div class="metric-value ${scoreColor(item.score)}">${item.score.toFixed(1)}<span style="font-size:0.7rem;color:var(--muted)">/100</span></div>
+        <div class="score-bar"><div class="score-fill" style="width:${item.score}%"></div></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Secteur</div>
+        <div class="metric-value" style="font-size:0.8rem">${item.sector}</div>
+        ${volBadge(item.vol || 1)}
+      </div>
+    </div>
+  `;
+  if (inWatchlist) {
+    card.querySelector('.remove-btn').addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      removeFromWatchlist(key);
+    });
+  }
+  fetchLivePrice(item.ticker, item.exchange, `price-${key}`);
+  return card;
+}
+
+async function fetchLivePrice(ticker, exchange, elId) {
+  const suffix = exchange === 'V' ? '.V' : '.TO';
+  const yTicker = ticker + suffix;
+  const el = document.getElementById(elId);
+  if (!el) return;
+  try {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yTicker}?interval=1d&range=1d`;
+    const r = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+    const d = await r.json();
+    const price = d?.chart?.result?.[0]?.meta?.regularMarketPrice;
+    if (price && el) {
+      el.textContent = price.toFixed(3) + ' $';
+    } else if (el) {
+      el.textContent = '— $';
+    }
+  } catch {
+    if (el) el.textContent = '— $';
+  }
+}
+
+function removeFromWatchlist(key) {
+  let list = getWatchlist().filter(i => (i.ticker + '.' + i.exchange) !== key);
+  saveWatchlist(list);
+  renderWatchlist();
+  showToast('Retiré de la watchlist', 'ok');
+}
+
+function renderWatchlist() {
+  const list = getWatchlist();
+  const grid = document.getElementById('watchlistGrid');
+  const count = document.getElementById('watchlist-count');
+  count.textContent = list.length + (list.length === 1 ? ' titre' : ' titres');
+  grid.innerHTML = '';
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-watchlist">
+      <p>Ta watchlist est vide.<br>Recherche un ticker ci-dessus ou ajoute un titre depuis sa fiche.<br><br>Exemples : <code>RPX.V</code> &nbsp; <code>MN.V</code> &nbsp; <code>MINE.V</code></p>
+    </div>`;
+    return;
+  }
+  list.forEach(item => grid.appendChild(buildStockCard(item, true)));
+}
+
+function renderTop20() {
+  const grid = document.getElementById('top20Grid');
+  TOP20.forEach((item, i) => {
+    const row = document.createElement('a');
+    row.className = 'top20-row';
+    row.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
+    row.innerHTML = `
+      <div class="rank ${i < 3 ? 'top3' : ''}">#${i+1}</div>
+      <div class="top20-info">
+        <div class="top20-ticker">${item.ticker}<span style="color:var(--muted);font-size:0.7rem">.${item.exchange}</span></div>
+        <div class="top20-name">${item.name.substring(0,30)}</div>
+      </div>
+      <div class="top20-score">${item.score.toFixed(1)}</div>
+    `;
+    grid.appendChild(row);
+  });
+}
+
+function handleSearch() {
+  let val = document.getElementById('searchInput').value.trim().toUpperCase();
+  if (!val) return;
+  let ticker = val, exchange = 'V';
+  if (val.includes('.')) {
+    const parts = val.split('.');
+    ticker = parts[0];
+    exchange = parts[1] === 'TO' ? 'TO' : 'V';
+  }
+  window.location.href = `stock.html?ticker=${ticker}&exchange=${exchange}`;
+}
+
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleSearch();
+});
+
+renderWatchlist();
+renderTop20();
+</script>
+</body>
+</html>
