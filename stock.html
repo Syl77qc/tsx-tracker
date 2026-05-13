@@ -31,6 +31,30 @@
   .wl-btn{display:block;margin-top:0.75rem;background:var(--accent);color:#000;border:none;padding:0.55rem 1.1rem;border-radius:8px;cursor:pointer;font-family:var(--mono);font-size:0.75rem;font-weight:700;letter-spacing:0.05em;transition:opacity 0.15s;width:100%;text-align:center;}
   .wl-btn:hover{opacity:0.85;}
   .wl-btn.added{background:var(--bg3);color:var(--accent2);border:1px solid var(--accent2);}
+
+  /* ── Bouton Analyse IA ── */
+  .ai-btn{display:block;margin-top:0.5rem;background:transparent;color:var(--accent);border:1px solid rgba(240,180,41,0.4);padding:0.55rem 1.1rem;border-radius:8px;cursor:pointer;font-family:var(--mono);font-size:0.75rem;font-weight:700;letter-spacing:0.05em;transition:all 0.15s;width:100%;text-align:center;}
+  .ai-btn:hover{background:rgba(240,180,41,0.08);border-color:var(--accent);}
+  .ai-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+  /* ── Carte Analyse IA ── */
+  .ai-card{background:var(--bg2);border:1px solid rgba(240,180,41,0.25);border-radius:12px;overflow:hidden;margin-bottom:1rem;display:none;}
+  .ai-card.visible{display:block;}
+  .ai-card-hdr{padding:0.85rem 1.1rem;border-bottom:1px solid rgba(240,180,41,0.15);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;}
+  .ai-card-hdr .ai-badge{background:rgba(240,180,41,0.12);border:1px solid rgba(240,180,41,0.2);border-radius:4px;padding:2px 7px;font-size:0.58rem;}
+  .ai-body{padding:1.1rem 1.2rem;font-size:0.83rem;line-height:1.7;color:var(--text);}
+  .ai-body h2{font-family:var(--mono);font-size:0.72rem;color:var(--accent);margin:1rem 0 0.4rem;letter-spacing:0.08em;}
+  .ai-body h2:first-child{margin-top:0;}
+  .ai-body ul{padding-left:1.1rem;color:var(--muted);}
+  .ai-body ul li{margin-bottom:0.2rem;}
+  .ai-body strong{color:var(--text);}
+  .ai-body p{color:var(--muted);margin-bottom:0.5rem;}
+  .ai-loading{padding:1.5rem 1.2rem;display:flex;align-items:center;gap:0.75rem;color:var(--muted);font-size:0.82rem;font-family:var(--mono);}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ai-spinner{width:16px;height:16px;border:2px solid rgba(240,180,41,0.2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+  .ai-error{padding:1rem 1.2rem;color:var(--danger);font-size:0.8rem;font-family:var(--mono);}
+  .ai-footer{padding:0.6rem 1.2rem;border-top:1px solid var(--border);font-size:0.68rem;color:var(--muted);font-family:var(--mono);}
+
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
   @media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr;}}
@@ -102,6 +126,9 @@
 <script>
 const D = window.TSX_DATA;
 
+// ── URL du Worker Cloudflare ──
+const WORKER_URL = 'https://tsx-groq-proxy.sylvaingobeil77.workers.dev/';
+
 function toast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+type;setTimeout(()=>t.className='toast',2500);}
 function getWL(){try{return JSON.parse(localStorage.getItem('tsx_watchlist')||'[]');}catch{return[];}}
 function saveWL(l){localStorage.setItem('tsx_watchlist',JSON.stringify(l));}
@@ -116,6 +143,65 @@ function updateBtn(inList,ticker,exchange,item){
   b.textContent=inList?'✓ Dans ma watchlist':'+ Ajouter à ma watchlist';
   b.className='wl-btn'+(inList?' added':'');
   b.onclick=()=>toggleWL(ticker,exchange,item);
+}
+
+// ── Analyse IA via Cloudflare Worker + Groq ──
+async function fetchAI(ticker, exchange) {
+  const card = document.getElementById('aiCard');
+  const btn  = document.getElementById('aiBtn');
+  if (!card || !btn) return;
+
+  // Afficher la carte avec spinner
+  card.classList.add('visible');
+  card.querySelector('.ai-body').innerHTML = '';
+  card.querySelector('.ai-loading').style.display = 'flex';
+  card.querySelector('.ai-error').style.display   = 'none';
+  card.querySelector('.ai-footer').style.display  = 'none';
+  btn.disabled = true;
+  btn.textContent = '⏳ Analyse en cours...';
+
+  // Scroll vers la carte
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ticker: `${ticker}.${exchange}` })
+    });
+
+    if (!res.ok) throw new Error(`Erreur HTTP ${res.status}`);
+    const data = await res.json();
+
+    // Convertir le markdown en HTML simple
+    const html = markdownToHtml(data.analysis || 'Analyse non disponible.');
+    card.querySelector('.ai-loading').style.display = 'none';
+    card.querySelector('.ai-body').innerHTML = html;
+    card.querySelector('.ai-footer').style.display = 'block';
+
+    const now = new Date().toLocaleString('fr-CA', { timeZone: 'America/Toronto' });
+    card.querySelector('.ai-footer').textContent = `Généré le ${now} · Groq compound-beta · À titre informatif uniquement`;
+
+  } catch (err) {
+    card.querySelector('.ai-loading').style.display = 'none';
+    card.querySelector('.ai-error').style.display = 'block';
+    card.querySelector('.ai-error').textContent = `⚠️ Erreur : ${err.message}`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔄 Rafraîchir l\'analyse';
+  }
+}
+
+// Convertit le markdown basique retourné par Groq en HTML
+function markdownToHtml(md) {
+  return md
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/((<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>')
+    .replace(/\n{2,}/g, '</p><p>')
+    .replace(/^(?!<[hul])/gm, '')
+    .replace(/\n/g, ' ');
 }
 
 async function fetchLive(ticker,exchange){
@@ -165,10 +251,28 @@ function render(ticker,exchange,item,live){
         <button class="wl-btn ${inList?'added':''}" id="wlBtn" onclick="toggleWL('${ticker}','${exchange}',TSX_DATA.top20.find(t=>t.ticker==='${ticker}'&&t.exchange==='${exchange}'))">
           ${inList?'✓ Dans ma watchlist':'+ Ajouter à ma watchlist'}
         </button>
+        <button class="ai-btn" id="aiBtn" onclick="fetchAI('${ticker}','${exchange}')">
+          🤖 Analyse IA
+        </button>
       </div>
     </div>
 
     ${item.notes?`<div class="note-box"><strong>📌 Note analystes / fondamentaux</strong>${item.notes}</div>`:''}
+
+    <!-- Carte Analyse IA — masquée par défaut -->
+    <div class="ai-card" id="aiCard">
+      <div class="ai-card-hdr">
+        <span>🤖 Analyse IA — ${ticker}.${exchange}</span>
+        <span class="ai-badge">Groq · compound-beta · web search</span>
+      </div>
+      <div class="ai-loading" style="display:none">
+        <div class="ai-spinner"></div>
+        <span>Recherche web + analyse en cours...</span>
+      </div>
+      <div class="ai-error" style="display:none"></div>
+      <div class="ai-body"></div>
+      <div class="ai-footer" style="display:none"></div>
+    </div>
 
     <div class="chart-wrap">
       <div class="chart-hdr"><span class="dot"></span>Graphique — ${ticker}.${exchange} · TradingView</div>
@@ -252,8 +356,27 @@ function renderUnknown(ticker,exchange,live){
       <div class="hero-right">
         <div class="price-big">${price?price.toFixed(3)+' $':'— $'}</div>
         <button class="wl-btn" onclick="toggleWL('${ticker}','${exchange}',{name:'${ticker}',score:0,vol_spike:1,sector:'—'})">+ Ajouter à ma watchlist</button>
+        <button class="ai-btn" id="aiBtn" onclick="fetchAI('${ticker}','${exchange}')">
+          🤖 Analyse IA
+        </button>
       </div>
     </div>
+
+    <!-- Carte Analyse IA -->
+    <div class="ai-card" id="aiCard">
+      <div class="ai-card-hdr">
+        <span>🤖 Analyse IA — ${ticker}.${exchange}</span>
+        <span class="ai-badge">Groq · compound-beta · web search</span>
+      </div>
+      <div class="ai-loading" style="display:none">
+        <div class="ai-spinner"></div>
+        <span>Recherche web + analyse en cours...</span>
+      </div>
+      <div class="ai-error" style="display:none"></div>
+      <div class="ai-body"></div>
+      <div class="ai-footer" style="display:none"></div>
+    </div>
+
     <div class="chart-wrap">
       <div class="chart-hdr"><span class="dot"></span>Graphique — ${ticker}.${exchange}</div>
       <div id="tv_${ticker}"></div>
