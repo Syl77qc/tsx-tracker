@@ -1,11 +1,11 @@
 // data.js — généré automatiquement par tsx_update.py
-// Dernière mise à jour : 2026-05-15 à 17:17
+// Dernière mise à jour : 2026-05-16 à 10:39
 // NE PAS MODIFIER MANUELLEMENT — relancer tsx_update.py
 
 const TSX_DATA = {
 
   meta: {
-    updated:      "2026-05-15 à 17:17",
+    updated:      "2026-05-16 à 10:39",
     data_date:    "2026-05-15",
     total_rockets: 3514,
     total_tickers: 8048,
