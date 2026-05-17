@@ -7,19 +7,21 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0a0c0f;--bg2:#111318;--bg3:#181c22;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#e8eaf0;--muted:#6b7280;--accent:#f0b429;--accent2:#3ecf8e;--danger:#f87171;--mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;}
+  :root{--bg:#0a0c0f;--bg2:#111318;--bg3:#181c22;--border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);--text:#e8eaf0;--muted:#6b7280;--accent:#f0b429;--accent2:#3ecf8e;--danger:#f87171;--info:#60a5fa;--mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;}
   header{border-bottom:1px solid var(--border);padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:10;background:rgba(10,12,15,0.92);backdrop-filter:blur(12px);}
   .logo{font-family:var(--mono);font-size:1rem;color:var(--accent);text-decoration:none;}
   .logo span{color:var(--muted);}
-  nav a{font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;padding:0.35rem 0.75rem;border:1px solid var(--border);border-radius:6px;transition:color 0.15s,border-color 0.15s;}
+  nav a{font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;padding:0.35rem 0.75rem;border:1px solid var(--border);border-radius:6px;transition:color 0.15s,border-color 0.15s;cursor:pointer;}
   nav a:hover{color:var(--accent);border-color:rgba(240,180,41,0.3);}
   .back{margin-left:auto;}
   main{max-width:1100px;margin:0 auto;padding:2rem 2rem;}
   .hero{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
-  .hero-left h1{font-family:var(--mono);font-size:1.9rem;font-weight:700;color:var(--accent);margin-bottom:0.2rem;}
+  .hero-left h1{font-family:var(--mono);font-size:1.9rem;font-weight:700;color:var(--accent);margin-bottom:0.2rem;display:flex;align-items:center;gap:0.6rem;}
   .hero-left h1 span{color:var(--muted);font-size:1rem;}
+  .copy-btn{background:none;border:1px solid var(--border);border-radius:5px;color:var(--muted);cursor:pointer;font-size:0.75rem;padding:3px 7px;transition:all 0.15s;font-family:var(--mono);vertical-align:middle;}
+  .copy-btn:hover{color:var(--accent);border-color:rgba(240,180,41,0.3);}
   .stock-name{color:var(--muted);font-size:0.88rem;margin-bottom:0.5rem;}
   .tags{display:flex;gap:0.5rem;flex-wrap:wrap;}
   .tag{font-family:var(--mono);font-size:0.62rem;padding:3px 8px;border-radius:4px;background:var(--bg3);color:var(--muted);border:1px solid var(--border);}
@@ -34,6 +36,11 @@
   .ai-btn{display:block;margin-top:0.5rem;background:transparent;color:var(--accent);border:1px solid rgba(240,180,41,0.4);padding:0.55rem 1.1rem;border-radius:8px;cursor:pointer;font-family:var(--mono);font-size:0.75rem;font-weight:700;letter-spacing:0.05em;transition:all 0.15s;width:100%;text-align:center;}
   .ai-btn:hover{background:rgba(240,180,41,0.08);border-color:var(--accent);}
   .ai-btn:disabled{opacity:0.5;cursor:not-allowed;}
+  /* Liens externes */
+  .ext-links{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+  .ext-link{font-family:var(--mono);font-size:0.65rem;color:var(--muted);text-decoration:none;padding:4px 10px;border:1px solid var(--border);border-radius:5px;transition:all 0.15s;white-space:nowrap;}
+  .ext-link:hover{color:var(--accent);border-color:rgba(240,180,41,0.3);background:rgba(240,180,41,0.04);}
+  /* AI card */
   .ai-card{background:var(--bg2);border:1px solid rgba(240,180,41,0.25);border-radius:12px;overflow:hidden;margin-bottom:1rem;display:none;}
   .ai-card.visible{display:block;}
   .ai-card-hdr{padding:0.85rem 1.1rem;border-bottom:1px solid rgba(240,180,41,0.15);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;justify-content:space-between;gap:0.5rem;}
@@ -61,6 +68,9 @@
   .mrow .v{font-family:var(--mono);color:var(--text);}
   .mrow .v.good{color:var(--accent2);}
   .mrow .v.warn{color:var(--accent);}
+  .mrow .v.surv-good{color:var(--accent2);}
+  .mrow .v.surv-mid{color:var(--accent);}
+  .mrow .v.surv-bad{color:var(--danger);}
   .score-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0.75rem 0;}
   .score-circle{width:84px;height:84px;border-radius:50%;border:3px solid var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:0.6rem;box-shadow:0 0 18px rgba(240,180,41,0.12);}
   .score-num{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--accent);line-height:1;}
@@ -106,7 +116,8 @@
   <a class="logo" href="index.html">TSX<span>.</span>ROCKET</a>
   <nav style="display:flex;gap:0.5rem;">
     <a href="index.html">Accueil</a>
-    <a href="stats.html">Statistiques</a>
+    <!-- Statistiques → retour à l'accueil sur l'onglet stats -->
+    <a href="index.html#stats" onclick="sessionStorage.setItem('goTab','stats')">Statistiques</a>
   </nav>
   <a class="back nav" href="index.html">← Retour</a>
 </header>
@@ -122,14 +133,24 @@
 const D = window.TSX_DATA;
 const WORKER_URL = 'https://tsx-groq-proxy.sylvaingobeil77.workers.dev/';
 
-function toast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+type;setTimeout(()=>t.className='toast',2500);}
+// ── Utilitaires ───────────────────────────────────────────────
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show '+type;
+  setTimeout(()=>t.className='toast',2500);
+}
 function getWL(){try{return JSON.parse(localStorage.getItem('tsx_watchlist')||'[]');}catch{return[];}}
 function saveWL(l){localStorage.setItem('tsx_watchlist',JSON.stringify(l));}
 function inWL(ticker,exchange){return getWL().some(i=>i.ticker===ticker&&i.exchange===exchange);}
 function toggleWL(ticker,exchange,item){
   let l=getWL();
-  if(inWL(ticker,exchange)){l=l.filter(i=>!(i.ticker===ticker&&i.exchange===exchange));saveWL(l);updateBtn(false,ticker,exchange,item);toast('Retiré de la watchlist');}
-  else{l.push({ticker,exchange,name:item.name,score:item.score,vol:item.vol_spike,sector:item.sector});saveWL(l);updateBtn(true,ticker,exchange,item);toast('Ajouté à ta watchlist ✓');}
+  if(inWL(ticker,exchange)){
+    l=l.filter(i=>!(i.ticker===ticker&&i.exchange===exchange));
+    saveWL(l);updateBtn(false,ticker,exchange,item);toast('Retiré de la watchlist');
+  }else{
+    l.push({ticker,exchange,name:item.name,score:item.score,vol:item.vol_spike,sector:item.sector});
+    saveWL(l);updateBtn(true,ticker,exchange,item);toast('Ajouté à ta watchlist ✓');
+  }
 }
 function updateBtn(inList,ticker,exchange,item){
   const b=document.getElementById('wlBtn');if(!b)return;
@@ -138,6 +159,43 @@ function updateBtn(inList,ticker,exchange,item){
   b.onclick=()=>toggleWL(ticker,exchange,item);
 }
 
+// ── Liens externes ────────────────────────────────────────────
+function extLinksHtml(ticker, exchange) {
+  const symLower = ticker.toLowerCase();
+  const exch     = exchange === 'V' ? 'v' : 'to';
+  const links = [
+    {
+      label: 'TMX Money',
+      url: `https://money.tmx.com/en/quote/${ticker}:${exchange==='V'?'V':'T'}`,
+    },
+    {
+      label: 'Stockhouse',
+      url: `https://stockhouse.com/companies/bullboard?symbol=${symLower}.${exch}`,
+    },
+    {
+      label: 'Stockwatch',
+      url: `https://www.stockwatch.com/Quote/Detail?U=${ticker}&M=${exchange==='V'?'V':'T'}`,
+    },
+    {
+      label: 'SEDAR+',
+      url: `https://www.sedarplus.ca/`,
+    },
+  ];
+  return links.map(l =>
+    `<a class="ext-link" href="${l.url}" target="_blank" rel="noopener noreferrer">${l.label} ↗</a>`
+  ).join('');
+}
+
+// ── Copier ticker ─────────────────────────────────────────────
+function copyTicker(ticker, exchange) {
+  const sym = `${ticker}.${exchange}`;
+  navigator.clipboard.writeText(sym).then(
+    () => toast(`${sym} copié ✓`),
+    () => toast('Copie non supportée', 'err')
+  );
+}
+
+// ── Analyse IA ────────────────────────────────────────────────
 async function fetchAI(ticker, exchange) {
   const card = document.getElementById('aiCard');
   const btn  = document.getElementById('aiBtn');
@@ -163,7 +221,8 @@ async function fetchAI(ticker, exchange) {
     card.querySelector('.ai-body').innerHTML = html;
     card.querySelector('.ai-footer').style.display = 'block';
     const now = new Date().toLocaleString('fr-CA', { timeZone: 'America/Toronto' });
-    card.querySelector('.ai-footer').textContent = `Généré le ${now} · Groq compound-beta-mini · À titre informatif uniquement`;
+    card.querySelector('.ai-footer').textContent =
+      `Généré le ${now} · Groq compound-beta-mini · À titre informatif uniquement`;
   } catch (err) {
     card.querySelector('.ai-loading').style.display = 'none';
     card.querySelector('.ai-error').style.display = 'block';
@@ -201,53 +260,100 @@ function aiCardHTML(ticker, exchange) {
     </div>`;
 }
 
-async function fetchLive(ticker,exchange){
-  const suffix=exchange==='V'?'.V':'.TO';
-  try{
-    const url=`https://query1.finance.yahoo.com/v8/finance/chart/${ticker+suffix}?interval=1d&range=5d`;
-    const r=await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
-    const d=await r.json();
-    const m=d?.chart?.result?.[0]?.meta;
-    if(!m)return null;
-    return{price:m.regularMarketPrice,prev:m.chartPreviousClose||m.previousClose,high52:m.fiftyTwoWeekHigh,low52:m.fiftyTwoWeekLow,volume:m.regularMarketVolume};
-  }catch{return null;}
+// ── Données live Yahoo Finance ────────────────────────────────
+async function fetchLive(ticker, exchange) {
+  const suffix = exchange === 'V' ? '.V' : '.TO';
+  try {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker+suffix}?interval=1d&range=5d`;
+    const r   = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+    const d   = await r.json();
+    const m   = d?.chart?.result?.[0]?.meta;
+    if (!m) return null;
+    return {
+      price:   m.regularMarketPrice,
+      prev:    m.chartPreviousClose || m.previousClose,
+      high52:  m.fiftyTwoWeekHigh,
+      low52:   m.fiftyTwoWeekLow,
+      volume:  m.regularMarketVolume,
+    };
+  } catch { return null; }
 }
 
-function volSignal(v){
-  if(v>=1.2)return{icon:'🔥',label:'Volume en forte hausse',detail:`${v.toFixed(1)}x la moyenne 30j — signal fort d'intérêt`};
-  if(v>=1.0)return{icon:'📈',label:'Volume en légère hausse',detail:`${v.toFixed(1)}x la moyenne 30j — intérêt croissant`};
-  return{icon:'😴',label:'Volume calme',detail:`${v.toFixed(1)}x la moyenne 30j`};
+// ── Signal volume ─────────────────────────────────────────────
+function volSignal(v) {
+  if (v >= 1.2) return {icon:'🔥', label:'Volume en forte hausse', detail:`${v.toFixed(1)}x la moyenne 60j — signal fort d'intérêt`};
+  if (v >= 1.0) return {icon:'📈', label:'Volume en légère hausse', detail:`${v.toFixed(1)}x la moyenne 60j — intérêt croissant`};
+  return {icon:'😴', label:'Volume calme', detail:`${v.toFixed(1)}x la moyenne 60j`};
 }
 
-function render(ticker,exchange,item,live){
-  const price=live?.price??item.last_close;
-  const prev=live?.prev??item.last_close;
-  const chg=price-prev, chgPct=prev?(chg/prev*100):0;
-  const chgClass=chg>=0?'up':'dn';
-  const chgStr=(chg>=0?'+':'')+chg.toFixed(3)+' $ ('+(chgPct>=0?'+':'')+chgPct.toFixed(2)+'%)';
-  const inList=inWL(ticker,exchange);
-  const vol=volSignal(item.vol_spike);
-  const mise=100/price;
-  const sd=item.score_details||{patternMatch:70,volMomentum:50,priceStability:65,lowProximity:50};
+// ── Signal survie sectorielle ─────────────────────────────────
+function survivalSignal(rate, sector) {
+  if (rate === null || rate === undefined) {
+    return `<div class="signal">
+      <div class="signal-icon">📊</div>
+      <div class="signal-text" style="color:var(--muted)">Survie sectorielle
+        <small>Non disponible — lancer tsx_survivantes.py pour enrichir les données</small>
+      </div>
+    </div>`;
+  }
+  const icon  = rate >= 50 ? '✅' : rate >= 30 ? '⚠️' : '🔴';
+  const color = rate >= 50 ? 'var(--accent2)' : rate >= 30 ? 'var(--accent)' : 'var(--danger)';
+  const label = rate >= 50 ? 'Secteur résilient' : rate >= 30 ? 'Risque de délistage modéré' : 'Risque de délistage élevé';
+  return `<div class="signal">
+    <div class="signal-icon">${icon}</div>
+    <div class="signal-text">
+      <span style="color:${color}">Survie sectorielle : ${rate.toFixed(0)}%</span>
+      <small>${rate.toFixed(0)}% des fusées historiques en ${sector} sont encore cotées · ${label}</small>
+    </div>
+  </div>`;
+}
 
-  document.getElementById('main').innerHTML=`
+// ── Rendu fiche complète (titre dans le top 20) ───────────────
+function render(ticker, exchange, item, live) {
+  const price    = live?.price ?? item.last_close;
+  const prev     = live?.prev  ?? item.last_close;
+  const chg      = price - prev;
+  const chgPct   = prev ? (chg / prev * 100) : 0;
+  const chgClass = chg >= 0 ? 'up' : 'dn';
+  const chgStr   = (chg >= 0 ? '+' : '') + chg.toFixed(3) + ' $ (' + (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%)';
+  const inList   = inWL(ticker, exchange);
+  const vol      = volSignal(item.vol_spike);
+  const mise     = 100 / price;
+  const sd       = item.score_details || {patternMatch:70, volMomentum:50, priceStability:65, lowProximity:50};
+
+  // TradingView : utiliser le bon marché selon l'exchange
+  // FIX v2 : était hardcodé TSXV pour tous les titres
+  const tvSymbol = `${exchange === 'V' ? 'TSXV' : 'TSX'}:${ticker}`;
+
+  // Nombre de fusées dynamique depuis data.js
+  const totalRockets = D.meta.total_rockets.toLocaleString('fr-CA');
+
+  // Taux de survie sectorielle (disponible si tsx_survivantes.py a tourné)
+  const survRate = item.sector_survival_rate ?? null;
+  const survCls  = survRate === null ? '' : survRate >= 50 ? 'surv-good' : survRate >= 30 ? 'surv-mid' : 'surv-bad';
+  const survStr  = survRate !== null ? survRate.toFixed(0) + '%' : '—';
+
+  document.getElementById('main').innerHTML = `
     <div class="hero">
       <div class="hero-left">
-        <h1>${ticker} <span>.${exchange}</span></h1>
+        <h1>
+          ${ticker} <span>.${exchange}</span>
+          <button class="copy-btn" onclick="copyTicker('${ticker}','${exchange}')" title="Copier le ticker">📋</button>
+        </h1>
         <div class="stock-name">${item.name}</div>
         <div class="tags">
-          <span class="tag">${exchange==='V'?'TSXV':'TSX'}</span>
+          <span class="tag">${exchange === 'V' ? 'TSXV' : 'TSX'}</span>
           <span class="tag">${item.sector}</span>
-          ${item.score>=70?'<span class="tag hot">Score élevé</span>':''}
+          ${item.score >= 70 ? '<span class="tag hot">Score élevé</span>' : ''}
           <span class="tag">#${item.rank} top20</span>
         </div>
       </div>
       <div class="hero-right">
         <div class="price-big">${price.toFixed(3)} $</div>
         <div class="price-change ${chgClass}">${chgStr}</div>
-        <button class="wl-btn ${inList?'added':''}" id="wlBtn"
+        <button class="wl-btn ${inList ? 'added' : ''}" id="wlBtn"
           onclick="toggleWL('${ticker}','${exchange}',TSX_DATA.top20.find(t=>t.ticker==='${ticker}'&&t.exchange==='${exchange}'))">
-          ${inList?'✓ Dans ma watchlist':'+ Ajouter à ma watchlist'}
+          ${inList ? '✓ Dans ma watchlist' : '+ Ajouter à ma watchlist'}
         </button>
         <button class="ai-btn" id="aiBtn" onclick="fetchAI('${ticker}','${exchange}')">
           🤖 Analyse IA
@@ -255,9 +361,15 @@ function render(ticker,exchange,item,live){
       </div>
     </div>
 
-    ${item.notes?`<div class="note-box"><strong>📌 Note analystes / fondamentaux</strong>${item.notes}</div>`:''}
+    ${item.notes ? `<div class="note-box"><strong>📌 Note analystes / fondamentaux</strong>${item.notes}</div>` : ''}
 
     ${aiCardHTML(ticker, exchange)}
+
+    <!-- Liens externes pour la due diligence -->
+    <div class="ext-links">
+      <span style="font-family:var(--mono);font-size:0.62rem;color:var(--muted);align-self:center;">Due diligence :</span>
+      ${extLinksHtml(ticker, exchange)}
+    </div>
 
     <div class="chart-wrap">
       <div class="chart-hdr"><span class="dot"></span>Graphique — ${ticker}.${exchange} · TradingView</div>
@@ -268,8 +380,11 @@ function render(ticker,exchange,item,live){
       <div class="card">
         <div class="card-title">Score algorithmique</div>
         <div class="score-wrap">
-          <div class="score-circle"><div class="score-num">${item.score.toFixed(0)}</div><div class="score-den">/100</div></div>
-          <div class="score-lbl">Ressemblance au profil de<br>2 949 fusées historiques</div>
+          <div class="score-circle">
+            <div class="score-num">${item.score.toFixed(0)}</div>
+            <div class="score-den">/100</div>
+          </div>
+          <div class="score-lbl">Ressemblance au profil de<br>${totalRockets} fusées historiques</div>
         </div>
         <div class="bar-wrap"><div class="bar-lbl"><span>Correspondance pattern</span><span>${sd.patternMatch}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${sd.patternMatch}%"></div></div></div>
         <div class="bar-wrap"><div class="bar-lbl"><span>Momentum volume</span><span>${sd.volMomentum}%</span></div><div class="bar-track"><div class="bar-fill" style="width:${sd.volMomentum}%;background:var(--accent2)"></div></div></div>
@@ -279,14 +394,29 @@ function render(ticker,exchange,item,live){
       <div class="card">
         <div class="card-title">Signaux pré-lancement</div>
         <div class="signal-list">
-          <div class="signal"><div class="signal-icon">${vol.icon}</div><div class="signal-text">${vol.label}<small>${vol.detail}</small></div></div>
-          <div class="signal"><div class="signal-icon">${item.price_trend==='up'?'↑':'↓'}</div><div class="signal-text">${item.price_trend==='up'?'Prix en hausse':'Prix en légère baisse'}<small>${item.price_trend==='down'?'Pattern accumulation silencieuse — cohérent avec profil fusée':''}</small></div></div>
-          <div class="signal"><div class="signal-icon">📍</div><div class="signal-text">Distance plancher 52s<small>${(item.dist_from_low*100).toFixed(0)}% au-dessus du bas annuel</small></div></div>
+          <div class="signal">
+            <div class="signal-icon">${vol.icon}</div>
+            <div class="signal-text">${vol.label}<small>${vol.detail}</small></div>
+          </div>
+          <div class="signal">
+            <div class="signal-icon">${item.price_trend === 'up' ? '↑' : '↓'}</div>
+            <div class="signal-text">
+              ${item.price_trend === 'up' ? 'Prix en hausse' : 'Prix en légère baisse'}
+              <small>${item.price_trend === 'down' ? 'Pattern accumulation silencieuse — cohérent avec profil fusée' : ''}</small>
+            </div>
+          </div>
+          <div class="signal">
+            <div class="signal-icon">📍</div>
+            <div class="signal-text">Distance plancher 52s
+              <small>${(item.dist_from_low * 100).toFixed(0)}% au-dessus du bas annuel</small>
+            </div>
+          </div>
+          ${survivalSignal(survRate, item.sector)}
           <div class="signal">
             <div class="signal-icon">📅</div>
             <div class="signal-text">Années actives — secteur ${item.sector}
               <small>Jours médian : ${item.days_median}j · Gain médian : +${item.gain_median}%</small>
-              <div class="years-pills">${(item.years_active||[]).map(y=>`<span class="year-pill">${y}</span>`).join('')}</div>
+              <div class="years-pills">${(item.years_active || []).map(y => `<span class="year-pill">${y}</span>`).join('')}</div>
             </div>
           </div>
         </div>
@@ -297,22 +427,25 @@ function render(ticker,exchange,item,live){
       <div class="card">
         <div class="card-title">Données de marché</div>
         <div class="mrow"><span class="k">Prix actuel</span><span class="v good">${price.toFixed(3)} $</span></div>
-        <div class="mrow"><span class="k">52s haut</span><span class="v">${live?.high52?live.high52.toFixed(3)+' $':'—'}</span></div>
-        <div class="mrow"><span class="k">52s bas</span><span class="v">${live?.low52?live.low52.toFixed(3)+' $':'—'}</span></div>
-        <div class="mrow"><span class="k">Volume jour</span><span class="v">${live?.volume?live.volume.toLocaleString('fr-CA'):'—'}</span></div>
+        <div class="mrow"><span class="k">52s haut</span><span class="v">${live?.high52 ? live.high52.toFixed(3) + ' $' : '—'}</span></div>
+        <div class="mrow"><span class="k">52s bas</span><span class="v">${live?.low52 ? live.low52.toFixed(3) + ' $' : '—'}</span></div>
+        <div class="mrow"><span class="k">Volume jour</span><span class="v">${live?.volume ? live.volume.toLocaleString('fr-CA') : '—'}</span></div>
         <div class="mrow"><span class="k">Secteur</span><span class="v">${item.sector}</span></div>
+        <div class="mrow"><span class="k">Survie sectorielle</span><span class="v ${survCls}">${survStr}</span></div>
         <div class="mrow"><span class="k">Données au</span><span class="v">${item.last_date}</span></div>
         <div class="mrow"><span class="k">Gain médian historique</span><span class="v warn">+${item.gain_median}%</span></div>
-        <div class="mrow"><span class="k">Délai médian au pic</span><span class="v">${item.days_median}j (~${Math.round(item.days_median/30)} mois)</span></div>
+        <div class="mrow"><span class="k">Délai médian au pic</span><span class="v">${item.days_median}j (~${Math.round(item.days_median / 30)} mois)</span></div>
       </div>
       <div class="card">
         <div class="card-title">Simulation — mise de 100 $</div>
         <table class="sim-table">
           <tr><td style="color:var(--muted);font-size:0.72rem">${Math.floor(mise)} actions à ${price.toFixed(3)}$</td><td></td></tr>
           ${[
-            [`Gain médian (+${item.gain_median}%)`, 1+item.gain_median/100],
-            ['+300%', 4],['+500%', 6],['+1000%', 11]
-          ].map(([lbl,mult])=>`<tr><td>${lbl}</td><td class="gain">→ ${Math.round(mise*price*mult)}$ <span style="color:var(--muted);font-size:0.7rem">(${(price*mult).toFixed(2)}$)</span></td></tr>`).join('')}
+            [`Gain médian (+${item.gain_median}%)`, 1 + item.gain_median / 100],
+            ['+300%', 4], ['+500%', 6], ['+1000%', 11]
+          ].map(([lbl, mult]) =>
+            `<tr><td>${lbl}</td><td class="gain">→ ${Math.round(mise * price * mult)}$ <span style="color:var(--muted);font-size:0.7rem">(${(price * mult).toFixed(2)}$)</span></td></tr>`
+          ).join('')}
           <tr><td style="color:var(--muted)">Si ça va à 0$</td><td class="loss">- 100 $</td></tr>
         </table>
       </div>
@@ -321,55 +454,91 @@ function render(ticker,exchange,item,live){
     <div class="disclaimer">⚠️ Analyse à titre informatif uniquement. Les penny stocks sont des investissements à très haut risque. Ce score est basé sur des patterns historiques statistiques et ne constitue pas un conseil financier. Ne jamais investir plus que ce qu'on est prêt à perdre entièrement.</div>
   `;
 
+  // TradingView — FIX : symbol dynamique selon exchange
   new TradingView.widget({
-    width:'100%',height:420,symbol:`TSXV:${ticker}`,
-    interval:'D',timezone:'America/Toronto',theme:'dark',style:'1',locale:'fr',
-    toolbar_bg:'#111318',enable_publishing:false,allow_symbol_change:false,
-    container_id:`tv_${ticker}`,hide_side_toolbar:false,
+    width: '100%', height: 420,
+    symbol: tvSymbol,
+    interval: 'D', timezone: 'America/Toronto',
+    theme: 'dark', style: '1', locale: 'fr',
+    toolbar_bg: '#111318',
+    enable_publishing: false,
+    allow_symbol_change: false,
+    container_id: `tv_${ticker}`,
+    hide_side_toolbar: false,
   });
 }
 
-function renderUnknown(ticker,exchange,live){
-  const price=live?.price??0;
-  document.getElementById('main').innerHTML=`
+// ── Rendu titre hors top 20 ───────────────────────────────────
+function renderUnknown(ticker, exchange, live) {
+  const price    = live?.price ?? 0;
+  // TradingView — FIX : symbol dynamique ici aussi
+  const tvSymbol = `${exchange === 'V' ? 'TSXV' : 'TSX'}:${ticker}`;
+
+  document.getElementById('main').innerHTML = `
     <div class="hero">
       <div class="hero-left">
-        <h1>${ticker} <span>.${exchange}</span></h1>
+        <h1>
+          ${ticker} <span>.${exchange}</span>
+          <button class="copy-btn" onclick="copyTicker('${ticker}','${exchange}')" title="Copier le ticker">📋</button>
+        </h1>
         <div class="stock-name">Titre hors top 20 algorithmique</div>
-        <div class="tags"><span class="tag">${exchange==='V'?'TSXV':'TSX'}</span></div>
+        <div class="tags"><span class="tag">${exchange === 'V' ? 'TSXV' : 'TSX'}</span></div>
       </div>
       <div class="hero-right">
-        <div class="price-big">${price?price.toFixed(3)+' $':'— $'}</div>
+        <div class="price-big">${price ? price.toFixed(3) + ' $' : '— $'}</div>
         <button class="wl-btn" onclick="toggleWL('${ticker}','${exchange}',{name:'${ticker}',score:0,vol_spike:1,sector:'—'})">+ Ajouter à ma watchlist</button>
         <button class="ai-btn" id="aiBtn" onclick="fetchAI('${ticker}','${exchange}')">🤖 Analyse IA</button>
       </div>
     </div>
+
     ${aiCardHTML(ticker, exchange)}
+
+    <!-- Liens externes -->
+    <div class="ext-links">
+      <span style="font-family:var(--mono);font-size:0.62rem;color:var(--muted);align-self:center;">Due diligence :</span>
+      ${extLinksHtml(ticker, exchange)}
+    </div>
+
     <div class="chart-wrap">
       <div class="chart-hdr"><span class="dot"></span>Graphique — ${ticker}.${exchange}</div>
       <div id="tv_${ticker}"></div>
     </div>
+
     <div class="card" style="margin-top:1rem">
       <div class="card-title">Note</div>
-      <p style="color:var(--muted);font-size:0.83rem;line-height:1.6">Ce titre n'est pas dans notre top 20 algorithmique actuel.<br>Le graphique et le prix live sont affichés. Pour mettre à jour le classement, relance <code style="color:var(--accent);font-size:0.78rem">tsx_update.py</code>.</p>
+      <p style="color:var(--muted);font-size:0.83rem;line-height:1.6">
+        Ce titre n'est pas dans le top 20 algorithmique actuel.<br>
+        Le graphique et le prix live sont affichés.<br>
+        Pour mettre à jour le classement, relance <code style="color:var(--accent);font-size:0.78rem">tsx_update.py</code>.
+      </p>
     </div>
     <div class="disclaimer" style="margin-top:1rem">⚠️ Analyse à titre informatif uniquement. Investissement à très haut risque.</div>`;
-  new TradingView.widget({width:'100%',height:420,symbol:`TSXV:${ticker}`,interval:'D',timezone:'America/Toronto',theme:'dark',style:'1',locale:'fr',toolbar_bg:'#111318',enable_publishing:false,container_id:`tv_${ticker}`});
+
+  new TradingView.widget({
+    width: '100%', height: 420,
+    symbol: tvSymbol,
+    interval: 'D', timezone: 'America/Toronto',
+    theme: 'dark', style: '1', locale: 'fr',
+    toolbar_bg: '#111318',
+    enable_publishing: false,
+    container_id: `tv_${ticker}`,
+  });
 }
 
-async function init(){
-  const p=new URLSearchParams(window.location.search);
-  const ticker=(p.get('ticker')||'').toUpperCase();
-  const exchange=(p.get('exchange')||'V').toUpperCase();
-  if(!ticker){window.location.href='index.html';return;}
-  document.title=`${ticker}.${exchange} — TSX Rocket`;
-  const item=D.top20.find(t=>t.ticker===ticker&&t.exchange===exchange);
-  const live=await fetchLive(ticker,exchange);
-  if(item){render(ticker,exchange,item,live);}
-  else{renderUnknown(ticker,exchange,live);}
+// ── Initialisation ────────────────────────────────────────────
+async function init() {
+  const p        = new URLSearchParams(window.location.search);
+  const ticker   = (p.get('ticker') || '').toUpperCase();
+  const exchange = (p.get('exchange') || 'V').toUpperCase();
+  if (!ticker) { window.location.href = 'index.html'; return; }
+  document.title = `${ticker}.${exchange} — TSX Rocket`;
+  const item = D.top20.find(t => t.ticker === ticker && t.exchange === exchange);
+  const live = await fetchLive(ticker, exchange);
+  if (item) { render(ticker, exchange, item, live); }
+  else      { renderUnknown(ticker, exchange, live); }
 }
 
-window.TSX_DATA=D;
+window.TSX_DATA = D;
 </script>
 <script src="https://s3.tradingview.com/tv.js" onload="init()"></script>
 </body>

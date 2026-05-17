@@ -21,7 +21,7 @@
   .logo span{color:var(--muted);}
   .header-right{margin-left:auto;display:flex;align-items:center;gap:1rem;}
   .update-badge{font-family:var(--mono);font-size:0.65rem;color:var(--muted);background:var(--bg3);padding:3px 8px;border-radius:4px;}
-  nav a{font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;padding:0.35rem 0.75rem;border:1px solid var(--border);border-radius:6px;transition:color 0.15s,border-color 0.15s;}
+  nav a{font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;padding:0.35rem 0.75rem;border:1px solid var(--border);border-radius:6px;transition:color 0.15s,border-color 0.15s;cursor:pointer;}
   nav a:hover,nav a.active{color:var(--accent);border-color:rgba(240,180,41,0.3);}
   main{max-width:1100px;margin:0 auto;padding:2rem 2rem;}
 
@@ -92,6 +92,13 @@
   .tab-btn{font-family:var(--mono);font-size:0.7rem;padding:0.35rem 0.9rem;border:1px solid var(--border);border-radius:6px;background:none;color:var(--muted);cursor:pointer;transition:all 0.15s;}
   .tab-btn.active{background:var(--accent);color:#000;border-color:var(--accent);}
 
+  /* Sort controls */
+  .sort-bar{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.85rem;flex-wrap:wrap;}
+  .sort-label{font-family:var(--mono);font-size:0.62rem;color:var(--muted);letter-spacing:0.06em;}
+  .sort-btn{font-family:var(--mono);font-size:0.63rem;padding:3px 10px;border:1px solid var(--border);border-radius:5px;background:none;color:var(--muted);cursor:pointer;transition:all 0.15s;}
+  .sort-btn:hover{color:var(--text);border-color:var(--border2);}
+  .sort-btn.active{background:var(--bg3);color:var(--accent);border-color:rgba(240,180,41,0.25);}
+
   /* Top 20 grid */
   .top20-list{display:flex;flex-direction:column;gap:0.5rem;}
   .top20-row{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:0.85rem 1.1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:border-color 0.2s;text-decoration:none;}
@@ -104,6 +111,11 @@
   .top20-right{display:flex;align-items:center;gap:1.5rem;text-align:right;}
   .top20-score{font-family:var(--mono);font-size:0.85rem;color:var(--accent);}
   .top20-sector{font-size:0.68rem;color:var(--muted);font-family:var(--mono);}
+  /* Survival dot */
+  .surv-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:4px;vertical-align:middle;}
+  .surv-good{background:var(--accent2);}
+  .surv-mid{background:var(--accent);}
+  .surv-bad{background:var(--danger);}
 
   /* Stats panel */
   .stats-panel{display:none;}
@@ -139,7 +151,8 @@
   <a class="logo" href="index.html">TSX<span>.</span>ROCKET</a>
   <nav style="display:flex;gap:0.5rem;">
     <a href="index.html" class="active">Accueil</a>
-    <a href="stats.html">Statistiques</a>
+    <!-- Statistiques → scroll + active tab, pas de page séparée -->
+    <a href="#" onclick="goToStats();return false;">Statistiques</a>
   </nav>
   <div class="header-right">
     <span class="update-badge" id="updateBadge">—</span>
@@ -149,7 +162,7 @@
 <main>
   <div class="hero">
     <h1>Penny stocks.<br><em>Patterns.</em> Opportunités.</h1>
-    <p>Basé sur l'analyse de <strong id="heroRockets">3 514</strong> fusées historiques (2000–2026). Données actualisées via tsx_update.py.</p>
+    <p>Basé sur l'analyse de <strong id="heroRockets">—</strong> fusées historiques (2000–2026). Données actualisées via tsx_update.py.</p>
   </div>
 
   <div class="stats-bar" id="statsBar"></div>
@@ -165,15 +178,22 @@
   <div class="section-label">Ma watchlist <span id="watchlistCount">0 titre</span></div>
   <div class="watchlist-grid" id="watchlistGrid"></div>
 
-  <div class="section-label">Top 20 algorithme — <span id="top20Date">—</span></div>
+  <div class="section-label" id="top20SectionLabel">Top 20 algorithme — <span id="top20Date">—</span></div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('top20',this)">Top 20</button>
-    <button class="tab-btn" onclick="switchTab('stats',this)">Stats par secteur</button>
-    <button class="tab-btn" onclick="switchTab('years',this)">Par année</button>
+    <button class="tab-btn active" id="tabTop20" onclick="switchTab('top20',this)">Top 20</button>
+    <button class="tab-btn" id="tabStats" onclick="switchTab('stats',this)">Stats par secteur</button>
+    <button class="tab-btn" id="tabYears" onclick="switchTab('years',this)">Par année</button>
   </div>
 
   <div id="top20Panel">
+    <!-- Contrôles de tri -->
+    <div class="sort-bar">
+      <span class="sort-label">Trier par :</span>
+      <button class="sort-btn active" id="sortScore" onclick="sortTop20('score',this)">Score ↓</button>
+      <button class="sort-btn" id="sortVol" onclick="sortTop20('vol',this)">Volume ↓</button>
+      <button class="sort-btn" id="sortPrice" onclick="sortTop20('price',this)">Prix ↑</button>
+    </div>
     <div class="top20-list" id="top20List"></div>
   </div>
 
@@ -249,7 +269,7 @@ const g  = D.stats_global;
   { val: '±' + Math.round(g.days_std) + 'j', lbl: 'Écart-type' },
   { val: g.days_q1 + 'j',      lbl: '25% avant (Q1)' },
   { val: g.days_q3 + 'j',      lbl: '75% avant (Q3)' },
-  { val: g.gain_median + '%',  lbl: 'Gain médian' },
+  { val: '+' + g.gain_median + '%',  lbl: 'Gain médian' },
 ].forEach(item => {
   sb.innerHTML += `<div class="stat-pill"><div class="val">${item.val}</div><div class="lbl">${item.lbl}</div></div>`;
 });
@@ -265,7 +285,9 @@ D.portfolio.forEach(p => {
   el.href = `stock.html?ticker=${p.ticker}&exchange=${p.exchange}`;
   el.style.textDecoration = 'none';
   el.innerHTML = `
-    ${p.in_top20 ? `<div class="p-rank">#${p.rank} top20</div>` : '<div class="p-rank" style="color:var(--muted)">hors top20</div>'}
+    ${p.in_top20
+      ? `<div class="p-rank">#${p.rank} top20</div>`
+      : `<div class="p-rank" style="color:var(--muted)">hors top20</div>`}
     <div class="p-ticker">${p.ticker}.${p.exchange}</div>
     <div class="p-name" id="pname-${p.ticker}">Chargement...</div>
     <div class="p-metrics">
@@ -276,11 +298,8 @@ D.portfolio.forEach(p => {
     </div>`;
   pg.appendChild(el);
 
-  // Nom depuis top20
   const t20 = D.top20.find(t => t.ticker === p.ticker && t.exchange === p.exchange);
   if (t20) document.getElementById(`pname-${p.ticker}`).textContent = t20.name;
-
-  // Prix live
   fetchPrice(p.ticker, p.exchange, `plive-${p.ticker}`);
 });
 
@@ -326,32 +345,65 @@ function renderWL() {
   list.forEach(item => grid.appendChild(buildCard(item)));
 }
 
-// ── Top 20 ───────────────────────────────────────────────────
-const tl = document.getElementById('top20List');
-D.top20.forEach(item => {
+// ── Top 20 — données triables ─────────────────────────────────
+let top20Data = [...D.top20];
+
+function survDot(rate) {
+  if (rate === null || rate === undefined) return '';
+  const cls = rate >= 50 ? 'surv-good' : rate >= 30 ? 'surv-mid' : 'surv-bad';
+  const title = `Survie sectorielle : ${rate.toFixed(0)}%`;
+  return `<span class="surv-dot ${cls}" title="${title}"></span>`;
+}
+
+function buildTop20Row(item, displayRank) {
   const row = document.createElement('a');
   row.className = 'top20-row';
   row.href = `stock.html?ticker=${item.ticker}&exchange=${item.exchange}`;
   const volCls = item.vol_spike >= 1.2 ? 'vol-hot' : item.vol_spike >= 1.0 ? 'vol-ok' : 'vol-cold';
+  const priceId = `t20p-${item.ticker}${item.exchange}`;
   row.innerHTML = `
-    <div class="rank ${item.rank<=3?'top3':''}">#${item.rank}</div>
+    <div class="rank ${displayRank<=3?'top3':''}">#${displayRank}</div>
     <div class="top20-info">
       <div class="top20-ticker">${item.ticker}<span style="color:var(--muted);font-size:0.68rem">.${item.exchange}</span></div>
       <div class="top20-name">${item.name}</div>
     </div>
     <div class="top20-right">
       <div>
-        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--accent2)" id="t20p-${item.ticker}${item.exchange}">—</div>
-        <div class="top20-sector">${item.sector}</div>
+        <div style="font-family:var(--mono);font-size:0.75rem;color:var(--accent2)" id="${priceId}">—</div>
+        <div class="top20-sector">${item.sector}${survDot(item.sector_survival_rate)}</div>
       </div>
       <div>
         <div class="top20-score">${item.score.toFixed(1)}</div>
         <div class="${`vol-badge ${volCls}`}" style="display:inline-block">${item.vol_spike.toFixed(1)}x</div>
       </div>
     </div>`;
-  tl.appendChild(row);
-  fetchPrice(item.ticker, item.exchange, `t20p-${item.ticker}${item.exchange}`);
-});
+  return row;
+}
+
+function renderTop20() {
+  const tl = document.getElementById('top20List');
+  tl.innerHTML = '';
+  top20Data.forEach((item, i) => {
+    const row = buildTop20Row(item, i + 1);
+    tl.appendChild(row);
+    fetchPrice(item.ticker, item.exchange, `t20p-${item.ticker}${item.exchange}`);
+  });
+}
+
+function sortTop20(key, btn) {
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (key === 'score') {
+    top20Data.sort((a, b) => b.score - a.score);
+  } else if (key === 'vol') {
+    top20Data.sort((a, b) => b.vol_spike - a.vol_spike);
+  } else if (key === 'price') {
+    top20Data.sort((a, b) => a.last_close - b.last_close);
+  }
+  renderTop20();
+}
+
+renderTop20();
 
 // ── Stats secteur ─────────────────────────────────────────────
 const globalDiv = document.getElementById('globalStats');
@@ -413,13 +465,19 @@ yc.innerHTML = D.stats_by_year.map(y => {
 // ── Tabs ──────────────────────────────────────────────────────
 function switchTab(tab, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   document.getElementById('top20Panel').style.display  = tab==='top20'  ? 'block' : 'none';
   document.getElementById('statsPanel').style.display  = tab==='stats'  ? 'block' : 'none';
   document.getElementById('yearsPanel').style.display  = tab==='years'  ? 'block' : 'none';
 }
 document.getElementById('statsPanel').style.display = 'none';
 document.getElementById('yearsPanel').style.display = 'none';
+
+// Navigation "Statistiques" → scroll + tab stats
+function goToStats() {
+  document.getElementById('top20SectionLabel').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => switchTab('stats', document.getElementById('tabStats')), 300);
+}
 
 // ── Recherche ─────────────────────────────────────────────────
 function handleSearch() {
