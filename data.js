@@ -1,11 +1,11 @@
 // data.js — généré automatiquement par tsx_update.py
-// Dernière mise à jour : 2026-05-16 à 10:39
+// Dernière mise à jour : 2026-05-17 à 11:11
 // NE PAS MODIFIER MANUELLEMENT — relancer tsx_update.py
 
 const TSX_DATA = {
 
   meta: {
-    updated:      "2026-05-16 à 10:39",
+    updated:      "2026-05-17 à 11:11",
     data_date:    "2026-05-15",
     total_rockets: 3514,
     total_tickers: 8048,
@@ -29,110 +29,110 @@ const TSX_DATA = {
   stats_by_sector: [
     {
         "sector": "Autre",
-        "n": 1419,
+        "n": 1377,
         "days_median": 270.0,
         "days_mean": 237.0,
-        "days_std": 117.0,
-        "days_q1": 133.0,
-        "days_q3": 350.0,
-        "gain_median": 258.0,
-        "gain_mean": 1066.0,
+        "days_std": 118.0,
+        "days_q1": 130.0,
+        "days_q3": 351.0,
+        "gain_median": 260.0,
+        "gain_mean": 1091.0,
         "price_median": 0.11
     },
     {
         "sector": "Cannabis",
-        "n": 33,
+        "n": 34,
         "days_median": 238.0,
         "days_mean": 215.0,
-        "days_std": 135.0,
-        "days_q1": 66.0,
-        "days_q3": 360.0,
+        "days_std": 133.0,
+        "days_q1": 70.0,
+        "days_q3": 359.0,
         "gain_median": 289.0,
-        "gain_mean": 851.0,
-        "price_median": 0.16
+        "gain_mean": 832.0,
+        "price_median": 0.17
     },
     {
         "sector": "Crypto / Blockchain",
-        "n": 13,
-        "days_median": 270.0,
-        "days_mean": 256.0,
-        "days_std": 121.0,
+        "n": 17,
+        "days_median": 273.0,
+        "days_mean": 255.0,
+        "days_std": 113.0,
         "days_q1": 208.0,
-        "days_q3": 364.0,
-        "gain_median": 300.0,
-        "gain_mean": 516.0,
+        "days_q3": 344.0,
+        "gain_median": 317.0,
+        "gain_mean": 523.0,
         "price_median": 0.085
     },
     {
         "sector": "Exploration g\u00e9n\u00e9rale",
-        "n": 819,
-        "days_median": 290.0,
-        "days_mean": 247.0,
-        "days_std": 116.0,
-        "days_q1": 148.0,
-        "days_q3": 356.0,
+        "n": 875,
+        "days_median": 287.0,
+        "days_mean": 246.0,
+        "days_std": 115.0,
+        "days_q1": 146.0,
+        "days_q3": 355.0,
         "gain_median": 247.0,
-        "gain_mean": 3135.0,
+        "gain_mean": 2958.0,
         "price_median": 0.09
     },
     {
         "sector": "M\u00e9taux critiques",
-        "n": 184,
+        "n": 176,
         "days_median": 294.0,
-        "days_mean": 256.0,
-        "days_std": 109.0,
+        "days_mean": 255.0,
+        "days_std": 110.0,
         "days_q1": 176.0,
         "days_q3": 352.0,
-        "gain_median": 252.0,
-        "gain_mean": 613.0,
-        "price_median": 0.1
+        "gain_median": 250.0,
+        "gain_mean": 623.0,
+        "price_median": 0.0975
     },
     {
         "sector": "Or / Argent",
-        "n": 564,
+        "n": 566,
         "days_median": 286.0,
         "days_mean": 251.0,
         "days_std": 112.0,
         "days_q1": 154.0,
-        "days_q3": 353.0,
+        "days_q3": 354.0,
         "gain_median": 250.0,
-        "gain_mean": 598.0,
+        "gain_mean": 597.0,
         "price_median": 0.1
     },
     {
         "sector": "Technologies",
-        "n": 178,
-        "days_median": 289.0,
-        "days_mean": 241.0,
-        "days_std": 120.0,
-        "days_q1": 134.0,
-        "days_q3": 351.0,
-        "gain_median": 262.0,
-        "gain_mean": 771.0,
-        "price_median": 0.1438
+        "n": 165,
+        "days_median": 293.0,
+        "days_mean": 247.0,
+        "days_std": 119.0,
+        "days_q1": 147.0,
+        "days_q3": 353.0,
+        "gain_median": 258.0,
+        "gain_mean": 767.0,
+        "price_median": 0.15
     },
     {
         "sector": "Uranium",
-        "n": 27,
-        "days_median": 265.0,
-        "days_mean": 232.0,
+        "n": 28,
+        "days_median": 269.0,
+        "days_mean": 236.0,
         "days_std": 111.0,
-        "days_q1": 152.0,
-        "days_q3": 330.0,
-        "gain_median": 233.0,
-        "gain_mean": 420.0,
-        "price_median": 0.13
+        "days_q1": 154.0,
+        "days_q3": 334.0,
+        "gain_median": 245.0,
+        "gain_mean": 421.0,
+        "price_median": 0.115
     },
     {
         "sector": "\u00c9nergie / P\u00e9trole",
-        "n": 277,
+        "n": 276,
         "days_median": 296.0,
         "days_mean": 251.0,
         "days_std": 114.0,
-        "days_q1": 157.0,
+        "days_q1": 156.0,
         "days_q3": 356.0,
         "gain_median": 256.0,
-        "gain_mean": 718.0,
+        "gain_mean": 717.0,
         "price_median": 0.11
     }
 ],
@@ -360,7 +360,8 @@ const TSX_DATA = {
             "lowProximity": 45
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 49.2
     },
     {
         "rank": 2,
@@ -384,7 +385,7 @@ const TSX_DATA = {
             2013
         ],
         "gain_median": 247.0,
-        "days_median": 290.0,
+        "days_median": 287.0,
         "score_details": {
             "patternMatch": 81,
             "volMomentum": 43,
@@ -392,7 +393,8 @@ const TSX_DATA = {
             "lowProximity": 46
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 48.5
     },
     {
         "rank": 3,
@@ -424,7 +426,8 @@ const TSX_DATA = {
             "lowProximity": 37
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 49.2
     },
     {
         "rank": 4,
@@ -456,7 +459,8 @@ const TSX_DATA = {
             "lowProximity": 45
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 39.5
     },
     {
         "rank": 5,
@@ -476,10 +480,10 @@ const TSX_DATA = {
             2000,
             2001,
             2008,
-            2020,
-            2023
+            2019,
+            2020
         ],
-        "gain_median": 258.0,
+        "gain_median": 260.0,
         "days_median": 270.0,
         "score_details": {
             "patternMatch": 72,
@@ -488,7 +492,8 @@ const TSX_DATA = {
             "lowProximity": 44
         },
         "notes": "",
-        "price_trend": "up"
+        "price_trend": "up",
+        "sector_survival_rate": 41.7
     },
     {
         "rank": 6,
@@ -520,7 +525,8 @@ const TSX_DATA = {
             "lowProximity": 40
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 49.2
     },
     {
         "rank": 7,
@@ -538,13 +544,13 @@ const TSX_DATA = {
         "last_date": "2026-05-15",
         "years_active": [
             2000,
-            2017,
             2019,
             2020,
+            2022,
             2023
         ],
-        "gain_median": 262.0,
-        "days_median": 289.0,
+        "gain_median": 258.0,
+        "days_median": 293.0,
         "score_details": {
             "patternMatch": 71,
             "volMomentum": 55,
@@ -552,7 +558,8 @@ const TSX_DATA = {
             "lowProximity": 48
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 46.1
     },
     {
         "rank": 8,
@@ -572,10 +579,10 @@ const TSX_DATA = {
             2000,
             2001,
             2008,
-            2020,
-            2023
+            2019,
+            2020
         ],
-        "gain_median": 258.0,
+        "gain_median": 260.0,
         "days_median": 270.0,
         "score_details": {
             "patternMatch": 70,
@@ -584,7 +591,8 @@ const TSX_DATA = {
             "lowProximity": 49
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 41.7
     },
     {
         "rank": 9,
@@ -608,7 +616,7 @@ const TSX_DATA = {
             2013
         ],
         "gain_median": 247.0,
-        "days_median": 290.0,
+        "days_median": 287.0,
         "score_details": {
             "patternMatch": 70,
             "volMomentum": 45,
@@ -616,14 +624,15 @@ const TSX_DATA = {
             "lowProximity": 34
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 48.5
     },
     {
         "rank": 10,
         "ticker": "JJ",
         "exchange": "V",
         "name": "Jackpot Digital Inc",
-        "sector": "Technologies",
+        "sector": "Autre",
         "score": 66.6,
         "last_close": 0.055,
         "last_volume": 21100,
@@ -634,13 +643,13 @@ const TSX_DATA = {
         "last_date": "2026-05-15",
         "years_active": [
             2000,
-            2017,
+            2001,
+            2008,
             2019,
-            2020,
-            2023
+            2020
         ],
-        "gain_median": 262.0,
-        "days_median": 289.0,
+        "gain_median": 260.0,
+        "days_median": 270.0,
         "score_details": {
             "patternMatch": 69,
             "volMomentum": 54,
@@ -648,7 +657,8 @@ const TSX_DATA = {
             "lowProximity": 49
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 41.7
     },
     {
         "rank": 11,
@@ -680,7 +690,8 @@ const TSX_DATA = {
             "lowProximity": 49
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 49.2
     },
     {
         "rank": 12,
@@ -703,7 +714,7 @@ const TSX_DATA = {
             2013,
             2015
         ],
-        "gain_median": 252.0,
+        "gain_median": 250.0,
         "days_median": 294.0,
         "score_details": {
             "patternMatch": 69,
@@ -712,7 +723,8 @@ const TSX_DATA = {
             "lowProximity": 46
         },
         "notes": "",
-        "price_trend": "up"
+        "price_trend": "up",
+        "sector_survival_rate": 51.8
     },
     {
         "rank": 13,
@@ -735,7 +747,7 @@ const TSX_DATA = {
             2013,
             2015
         ],
-        "gain_median": 252.0,
+        "gain_median": 250.0,
         "days_median": 294.0,
         "score_details": {
             "patternMatch": 69,
@@ -744,7 +756,8 @@ const TSX_DATA = {
             "lowProximity": 32
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 51.8
     },
     {
         "rank": 14,
@@ -776,7 +789,8 @@ const TSX_DATA = {
             "lowProximity": 50
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 49.2
     },
     {
         "rank": 15,
@@ -799,7 +813,7 @@ const TSX_DATA = {
             2013,
             2015
         ],
-        "gain_median": 252.0,
+        "gain_median": 250.0,
         "days_median": 294.0,
         "score_details": {
             "patternMatch": 68,
@@ -808,7 +822,8 @@ const TSX_DATA = {
             "lowProximity": 5
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 51.8
     },
     {
         "rank": 16,
@@ -826,13 +841,13 @@ const TSX_DATA = {
         "last_date": "2026-05-15",
         "years_active": [
             2000,
-            2017,
             2019,
             2020,
+            2022,
             2023
         ],
-        "gain_median": 262.0,
-        "days_median": 289.0,
+        "gain_median": 258.0,
+        "days_median": 293.0,
         "score_details": {
             "patternMatch": 67,
             "volMomentum": 38,
@@ -840,7 +855,8 @@ const TSX_DATA = {
             "lowProximity": 43
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 46.1
     },
     {
         "rank": 17,
@@ -872,7 +888,8 @@ const TSX_DATA = {
             "lowProximity": 48
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 49.2
     },
     {
         "rank": 18,
@@ -896,7 +913,7 @@ const TSX_DATA = {
             2013
         ],
         "gain_median": 247.0,
-        "days_median": 290.0,
+        "days_median": 287.0,
         "score_details": {
             "patternMatch": 66,
             "volMomentum": 52,
@@ -904,7 +921,8 @@ const TSX_DATA = {
             "lowProximity": 46
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 48.5
     },
     {
         "rank": 19,
@@ -928,7 +946,7 @@ const TSX_DATA = {
             2013
         ],
         "gain_median": 247.0,
-        "days_median": 290.0,
+        "days_median": 287.0,
         "score_details": {
             "patternMatch": 66,
             "volMomentum": 42,
@@ -936,7 +954,8 @@ const TSX_DATA = {
             "lowProximity": 48
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 48.5
     },
     {
         "rank": 20,
@@ -956,10 +975,10 @@ const TSX_DATA = {
             2000,
             2001,
             2008,
-            2020,
-            2023
+            2019,
+            2020
         ],
-        "gain_median": 258.0,
+        "gain_median": 260.0,
         "days_median": 270.0,
         "score_details": {
             "patternMatch": 65,
@@ -968,7 +987,8 @@ const TSX_DATA = {
             "lowProximity": 47
         },
         "notes": "",
-        "price_trend": "down"
+        "price_trend": "down",
+        "sector_survival_rate": 41.7
     }
 ],
 
@@ -985,7 +1005,7 @@ const TSX_DATA = {
         "value": 100.0,
         "rank": 819,
         "score": 20.0,
-        "in_top20": true
+        "in_top20": false
     },
     {
         "ticker": "CYG",
@@ -999,7 +1019,7 @@ const TSX_DATA = {
         "value": 96.25,
         "rank": 91,
         "score": 53.2,
-        "in_top20": true
+        "in_top20": false
     }
 ],
 
